@@ -16,19 +16,6 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
     window.open(`https://wa.me/${contactInfo.whatsapp}?text=${encodedMessage}`, '_blank');
   };
 
-  const openVideo = (pillar: string) => {
-    setActiveVideo(pillar);
-  };
-
-  const closeVideo = () => {
-    setActiveVideo(null);
-  };
-
-  const getVideoId = (pillar: string) => {
-    // Todos os pilares usam o mesmo vídeo por enquanto
-    return '1093077093';
-  };
-
   const pillars = [
     {
       step: 1,
@@ -62,7 +49,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Programación Automática'
       ],
       color: 'from-blue-500 to-blue-600',
-      pillarKey: 'pillar1'
+      videoId: '1093077093'
     },
     {
       step: 2,
@@ -99,7 +86,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Insights Predictivos'
       ],
       color: 'from-purple-500 to-purple-600',
-      pillarKey: 'pillar2'
+      videoId: '1093077093'
     },
     {
       step: 3,
@@ -136,7 +123,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Puja Automática'
       ],
       color: 'from-green-500 to-green-600',
-      pillarKey: 'pillar3'
+      videoId: '1093077093'
     },
     {
       step: 4,
@@ -173,7 +160,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Evolución Continua'
       ],
       color: 'from-orange-500 to-orange-600',
-      pillarKey: 'pillar4'
+      videoId: '1093077093'
     }
   ];
 
@@ -240,7 +227,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         </div>
       </section>
 
-      {/* The 4 Pillars Section - Layout Intercalado */}
+      {/* The 4 Pillars Section */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-12">
@@ -280,7 +267,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                       </div>
 
                       <button 
-                        onClick={() => openVideo(pillar.pillarKey)}
+                        onClick={() => setActiveVideo(pillar.videoId)}
                         className="flex items-center space-x-3 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-all duration-300 w-fit"
                       >
                         <Play className="w-5 h-5" />
@@ -296,7 +283,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                     <div className={`bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-6 lg:p-8 ${!isEven ? 'lg:col-start-1' : ''}`}>
                       <div 
                         className="w-full max-w-md aspect-video bg-black rounded-2xl flex items-center justify-center relative overflow-hidden cursor-pointer"
-                        onClick={() => openVideo(pillar.pillarKey)}
+                        onClick={() => setActiveVideo(pillar.videoId)}
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
                         <div className="relative z-10 flex items-center justify-center">
@@ -394,24 +381,24 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
 
       {/* Modal de Vídeo */}
       {activeVideo && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden">
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+          <div className="relative w-full max-w-4xl aspect-video">
             {/* Botão Fechar */}
             <button
-              onClick={closeVideo}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+              onClick={() => setActiveVideo(null)}
+              className="absolute -top-12 right-0 z-10 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
             
             {/* Vídeo do Vimeo */}
             <iframe
-              src={`https://player.vimeo.com/video/${getVideoId(activeVideo)}?autoplay=1&title=0&byline=0&portrait=0`}
-              className="w-full h-full"
+              src={`https://player.vimeo.com/video/${activeVideo}?autoplay=1`}
+              className="w-full h-full rounded-lg"
               style={{ border: 'none' }}
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
-              title={`Pillar ${activeVideo} Video`}
+              title="Method Video"
             />
           </div>
         </div>

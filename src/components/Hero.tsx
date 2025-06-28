@@ -29,24 +29,25 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background com vídeo do Vimeo */}
-      <div className="absolute inset-0 w-full h-full">
-        <iframe
-          src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1&title=0&byline=0&portrait=0"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            width: '100vw',
-            height: '100vh',
-            border: 'none',
-            pointerEvents: 'none'
-          }}
-          allow="autoplay; fullscreen"
-          title="Hero Background Video"
-        />
-        
-        {/* Overlay escuro para melhor legibilidade */}
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
-      </div>
+      {/* Background com vídeo do Vimeo - TESTE DIRETO */}
+      <iframe
+        src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          border: 'none',
+          zIndex: 1
+        }}
+        allow="autoplay; fullscreen"
+        title="Hero Background Video"
+      />
+      
+      {/* Overlay escuro */}
+      <div className="absolute inset-0 bg-black/50 z-10"></div>
 
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
