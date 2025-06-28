@@ -32,24 +32,28 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
       {/* Background com vídeo do Vimeo */}
       <div className="absolute inset-0 z-0">
         {/* Vídeo de fundo do Vimeo */}
-        <iframe
-          src={`${videoUrls.hero[language]}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ 
-            width: '100vw', 
-            height: '100vh',
-            pointerEvents: 'none'
-          }}
-          frameBorder="0"
-          allow="autoplay; fullscreen"
-          allowFullScreen
-        />
+        <div className="absolute inset-0 w-full h-full">
+          <iframe
+            src={`${videoUrls.hero[language]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0&transparent=0`}
+            className="absolute inset-0 w-full h-full"
+            style={{ 
+              width: '100vw', 
+              height: '100vh',
+              objectFit: 'cover',
+              pointerEvents: 'none'
+            }}
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            title="Hero Background Video"
+          />
+        </div>
         
         {/* Overlay escuro para melhor legibilidade */}
         <div className="absolute inset-0 bg-black/50"></div>
         
         {/* Fallback caso o vídeo não carregue */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black -z-10">
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
             <div className="absolute top-3/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>

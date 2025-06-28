@@ -422,7 +422,8 @@ export const translations = {
 // 🎥 CONFIGURAÇÃO DE VÍDEOS DO VIMEO
 // ========================================
 // ALTERE AQUI OS URLs DOS VÍDEOS DO VIMEO
-// Formato: https://player.vimeo.com/video/SEU_VIDEO_ID
+// Formato correto: https://player.vimeo.com/video/SEU_VIDEO_ID
+// ⚠️ IMPORTANTE: Use apenas o ID do vídeo, não a URL completa do Vimeo
 
 export const videoUrls: { [key: string]: VideoUrls } = {
   // Vídeo de fundo do Hero (seção principal)
@@ -501,7 +502,7 @@ export const logoConfig = {
 // 🔗 CONFIGURAÇÃO DE INTEGRAÇÕES
 // ========================================
 // ALTERE AQUI OS LOGOS DAS FERRAMENTAS QUE VOCÊS INTEGRAM
-// Para adicionar novos logos, coloque os arquivos na pasta /public/ e adicione aqui
+// Para adicionar novos logos, coloque os arquivos na pasta /public/logos/ e adicione aqui
 
 export const integrationLogos = [
   { 
@@ -560,7 +561,7 @@ export const integrationLogos = [
 // 🏢 CONFIGURAÇÃO DE APOIADORES
 // ========================================
 // ALTERE AQUI OS LOGOS DOS APOIADORES
-// Para adicionar novos apoiadores, coloque os arquivos na pasta /public/ e adicione aqui
+// Para adicionar novos apoiadores, coloque os arquivos na pasta /public/logos/ e adicione aqui
 
 export const supporterLogos = [
   { 
