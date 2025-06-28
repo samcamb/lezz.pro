@@ -411,9 +411,9 @@ export const translations = {
   // Sticky Banner
   stickyBanner: {
     text: {
-      'pt-BR': 'Conheça e converse agora com a Lezz AI',
-      'en-US': 'Meet and chat now with Lezz AI',
-      'es': 'Conoce y conversa ahora con Lezz AI'
+      'pt-BR': 'Pergunte para Lezz IA como Otimizar seu negócio com IA',
+      'en-US': 'Ask Lezz AI how to Optimize your business with AI',
+      'es': 'Pregúntale a Lezz IA cómo Optimizar tu negocio con IA'
     }
   }
 };
