@@ -1,5 +1,5 @@
-import React from 'react';
-import { Target, Users, Lightbulb, Play } from 'lucide-react';
+import React, { useState } from 'react';
+import { Target, Users, Lightbulb, Play, X } from 'lucide-react';
 import { Language } from '../types/language';
 import { translations } from '../data/translations';
 
@@ -8,7 +8,16 @@ interface PurposeProps {
 }
 
 const Purpose: React.FC<PurposeProps> = ({ language }) => {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const t = translations.purpose;
+
+  const openVideo = () => {
+    setIsVideoOpen(true);
+  };
+
+  const closeVideo = () => {
+    setIsVideoOpen(false);
+  };
 
   return (
     <section id="purpose" className="py-16 bg-white">
@@ -82,34 +91,11 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
             </div>
           </div>
 
-          {/* Visual com Vídeo - VERSÃO SIMPLIFICADA */}
+          {/* Visual com Vídeo */}
           <div className="relative">
-            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden relative">
-              {/* Vídeo do Vimeo para a seção Purpose */}
-              <div className="absolute inset-0 w-full h-full">
-                <iframe
-                  src="https://player.vimeo.com/video/1093077093?autoplay=1&loop=1&muted=1&controls=0&background=1"
-                  className="absolute top-0 left-0 w-full h-full rounded-3xl"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: 'none'
-                  }}
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                  title="Purpose Section Video"
-                />
-              </div>
-              
-              {/* Overlay com botão de play */}
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-colors cursor-pointer">
-                  <Play className="w-8 h-8 text-white ml-1" />
-                </div>
-              </div>
-              
-              {/* Fallback caso o vídeo não carregue */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center z-0">
+            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden relative cursor-pointer" onClick={openVideo}>
+              {/* Thumbnail/Preview */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center">
                 <div className="relative">
                   <div className="w-56 h-56 relative">
                     <div className="absolute inset-0 bg-black rounded-full opacity-10 animate-pulse"></div>
@@ -121,10 +107,42 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
                   </div>
                 </div>
               </div>
+              
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-colors">
+                  <Play className="w-8 h-8 text-white ml-1" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal de Vídeo */}
+      {isVideoOpen && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden">
+            {/* Botão Fechar */}
+            <button
+              onClick={closeVideo}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            {/* Vídeo do Vimeo */}
+            <iframe
+              src="https://player.vimeo.com/video/1093077093?autoplay=1&title=0&byline=0&portrait=0"
+              className="w-full h-full"
+              style={{ border: 'none' }}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              title="Purpose Video"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };

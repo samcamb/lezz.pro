@@ -1,18 +1,32 @@
-import React from 'react';
-import { Bot, BarChart3, Target, BookOpen, ArrowRight, CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bot, BarChart3, Target, BookOpen, ArrowRight, CheckCircle, Play, X } from 'lucide-react';
 import { Language } from '../types/language';
-import { translations, contactInfo, videoUrls } from '../data/translations';
+import { translations, contactInfo } from '../data/translations';
 
 interface MethodPageProps {
   language: Language;
 }
 
 const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const t = translations.method;
 
   const handleWhatsApp = (message: string) => {
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${contactInfo.whatsapp}?text=${encodedMessage}`, '_blank');
+  };
+
+  const openVideo = (pillar: string) => {
+    setActiveVideo(pillar);
+  };
+
+  const closeVideo = () => {
+    setActiveVideo(null);
+  };
+
+  const getVideoId = (pillar: string) => {
+    // Todos os pilares usam o mesmo vídeo por enquanto
+    return '1093077093';
   };
 
   const pillars = [
@@ -48,7 +62,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Programación Automática'
       ],
       color: 'from-blue-500 to-blue-600',
-      videoUrl: videoUrls.pillar1[language]
+      pillarKey: 'pillar1'
     },
     {
       step: 2,
@@ -85,7 +99,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Insights Predictivos'
       ],
       color: 'from-purple-500 to-purple-600',
-      videoUrl: videoUrls.pillar2[language]
+      pillarKey: 'pillar2'
     },
     {
       step: 3,
@@ -122,7 +136,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Puja Automática'
       ],
       color: 'from-green-500 to-green-600',
-      videoUrl: videoUrls.pillar3[language]
+      pillarKey: 'pillar3'
     },
     {
       step: 4,
@@ -159,7 +173,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         'Evolución Continua'
       ],
       color: 'from-orange-500 to-orange-600',
-      videoUrl: videoUrls.pillar4[language]
+      pillarKey: 'pillar4'
     }
   ];
 
@@ -256,7 +270,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {pillar.description}
                       </p>
 
-                      <div className="space-y-2">
+                      <div className="space-y-2 mb-6">
                         {pillar.features.map((feature, featureIndex) => (
                           <div key={featureIndex} className="flex items-center space-x-2">
                             <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
@@ -264,15 +278,30 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                           </div>
                         ))}
                       </div>
+
+                      <button 
+                        onClick={() => openVideo(pillar.pillarKey)}
+                        className="flex items-center space-x-3 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-all duration-300 w-fit"
+                      >
+                        <Play className="w-5 h-5" />
+                        <span className="font-medium">
+                          {language === 'pt-BR' ? 'Ver em Ação' : 
+                           language === 'en-US' ? 'See in Action' : 
+                           'Ver en Acción'}
+                        </span>
+                      </button>
                     </div>
 
                     {/* Visual/Video */}
                     <div className={`bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-6 lg:p-8 ${!isEven ? 'lg:col-start-1' : ''}`}>
-                      <div className="w-full max-w-md aspect-video bg-black rounded-2xl flex items-center justify-center relative overflow-hidden">
+                      <div 
+                        className="w-full max-w-md aspect-video bg-black rounded-2xl flex items-center justify-center relative overflow-hidden cursor-pointer"
+                        onClick={() => openVideo(pillar.pillarKey)}
+                      >
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
                         <div className="relative z-10 flex items-center justify-center">
                           <div className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm`}>
-                            <Icon className="w-8 h-8 text-white" />
+                            <Play className="w-8 h-8 text-white ml-1" />
                           </div>
                         </div>
                         <div className="absolute bottom-3 left-3 right-3">
@@ -362,6 +391,31 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
           </button>
         </div>
       </section>
+
+      {/* Modal de Vídeo */}
+      {activeVideo && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden">
+            {/* Botão Fechar */}
+            <button
+              onClick={closeVideo}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            {/* Vídeo do Vimeo */}
+            <iframe
+              src={`https://player.vimeo.com/video/${getVideoId(activeVideo)}?autoplay=1&title=0&byline=0&portrait=0`}
+              className="w-full h-full"
+              style={{ border: 'none' }}
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              title={`Pillar ${activeVideo} Video`}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
