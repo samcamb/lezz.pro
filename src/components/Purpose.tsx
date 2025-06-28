@@ -1,7 +1,7 @@
 import React from 'react';
 import { Target, Users, Lightbulb, Play } from 'lucide-react';
 import { Language } from '../types/language';
-import { translations, videoUrls } from '../data/translations';
+import { translations } from '../data/translations';
 
 interface PurposeProps {
   language: Language;
@@ -82,41 +82,41 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
             </div>
           </div>
 
-          {/* Visual com Vídeo */}
+          {/* Visual com Vídeo - VERSÃO SIMPLIFICADA */}
           <div className="relative">
-            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center relative">
-                {/* Vídeo do Vimeo para a seção Purpose */}
+            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden relative">
+              {/* Vídeo do Vimeo para a seção Purpose */}
+              <div className="absolute inset-0 w-full h-full">
                 <iframe
-                  src={`${videoUrls.purpose?.[language] || videoUrls.hero[language]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0`}
-                  className="absolute inset-0 w-full h-full object-cover rounded-3xl"
-                  style={{ 
-                    width: '100%', 
+                  src="https://player.vimeo.com/video/1093077093?autoplay=1&loop=1&muted=1&controls=0&background=1"
+                  className="absolute top-0 left-0 w-full h-full rounded-3xl"
+                  style={{
+                    width: '100%',
                     height: '100%',
                     border: 'none'
                   }}
-                  allow="autoplay; fullscreen"
+                  allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
                   title="Purpose Section Video"
                 />
-                
-                {/* Overlay com botão de play */}
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10">
-                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-colors cursor-pointer">
-                    <Play className="w-8 h-8 text-white ml-1" />
-                  </div>
+              </div>
+              
+              {/* Overlay com botão de play */}
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-colors cursor-pointer">
+                  <Play className="w-8 h-8 text-white ml-1" />
                 </div>
-                
-                {/* Fallback caso o vídeo não carregue */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center">
-                  <div className="relative">
-                    <div className="w-56 h-56 relative">
-                      <div className="absolute inset-0 bg-black rounded-full opacity-10 animate-pulse"></div>
-                      <div className="absolute top-1/4 left-1/4 w-28 h-28 bg-black rounded-lg transform rotate-12 opacity-20"></div>
-                      <div className="absolute bottom-1/4 right-1/4 w-20 h-20 bg-gray-600 rounded-full opacity-30"></div>
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-black rounded-full flex items-center justify-center">
-                        <Users className="w-7 h-7 text-white" />
-                      </div>
+              </div>
+              
+              {/* Fallback caso o vídeo não carregue */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center z-0">
+                <div className="relative">
+                  <div className="w-56 h-56 relative">
+                    <div className="absolute inset-0 bg-black rounded-full opacity-10 animate-pulse"></div>
+                    <div className="absolute top-1/4 left-1/4 w-28 h-28 bg-black rounded-lg transform rotate-12 opacity-20"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-20 h-20 bg-gray-600 rounded-full opacity-30"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-black rounded-full flex items-center justify-center">
+                      <Users className="w-7 h-7 text-white" />
                     </div>
                   </div>
                 </div>
