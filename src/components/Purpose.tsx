@@ -87,31 +87,28 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
             <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl overflow-hidden">
               <div className="w-full h-full flex items-center justify-center relative">
                 {/* Vídeo do Vimeo para a seção Purpose */}
-                <div className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden">
-                  <iframe
-                    src={`${videoUrls.purpose?.[language] || videoUrls.hero[language]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0&transparent=0`}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ 
-                      width: '100%', 
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    title="Purpose Section Video"
-                  />
-                </div>
+                <iframe
+                  src={`${videoUrls.purpose?.[language] || videoUrls.hero[language]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0`}
+                  className="absolute inset-0 w-full h-full object-cover rounded-3xl"
+                  style={{ 
+                    width: '100%', 
+                    height: '100%',
+                    border: 'none'
+                  }}
+                  allow="autoplay; fullscreen"
+                  allowFullScreen
+                  title="Purpose Section Video"
+                />
                 
                 {/* Overlay com botão de play */}
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl">
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10">
                   <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-colors cursor-pointer">
                     <Play className="w-8 h-8 text-white ml-1" />
                   </div>
                 </div>
                 
                 {/* Fallback caso o vídeo não carregue */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center -z-10">
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center">
                   <div className="relative">
                     <div className="w-56 h-56 relative">
                       <div className="absolute inset-0 bg-black rounded-full opacity-10 animate-pulse"></div>

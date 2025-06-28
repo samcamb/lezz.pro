@@ -421,26 +421,26 @@ export const translations = {
 // ========================================
 // 🎥 CONFIGURAÇÃO DE VÍDEOS DO VIMEO
 // ========================================
-// ALTERE AQUI OS URLs DOS VÍDEOS DO VIMEO
-// Formato correto: https://player.vimeo.com/video/SEU_VIDEO_ID
-// ⚠️ IMPORTANTE: Use apenas o ID do vídeo, não a URL completa do Vimeo
+// ⚠️ IMPORTANTE: ALTERE APENAS OS NÚMEROS DOS IDs DOS VÍDEOS
+// Formato: https://player.vimeo.com/video/SEU_VIDEO_ID
+// Exemplo: Se seu vídeo é https://vimeo.com/1092831931, use apenas 1092831931
 
 export const videoUrls: { [key: string]: VideoUrls } = {
-  // Vídeo de fundo do Hero (seção principal)
+  // 🎬 Vídeo de fundo do Hero (seção principal)
   hero: {
     'pt-BR': 'https://player.vimeo.com/video/1092831931',
     'en-US': 'https://player.vimeo.com/video/1092831931', 
     'es': 'https://player.vimeo.com/video/1092831931'
   },
   
-  // Vídeo da seção Purpose (IA com Propósito)
+  // 🎬 Vídeo da seção Purpose (IA com Propósito)
   purpose: {
     'pt-BR': 'https://player.vimeo.com/video/1093077093',
     'en-US': 'https://player.vimeo.com/video/1093077093',
     'es': 'https://player.vimeo.com/video/1093077093'
   },
   
-  // Vídeos dos 4 Pilares do Método
+  // 🎬 Vídeos dos 4 Pilares do Método
   pillar1: {
     'pt-BR': 'https://player.vimeo.com/video/1093077093',
     'en-US': 'https://player.vimeo.com/video/1093077093',
@@ -466,7 +466,7 @@ export const videoUrls: { [key: string]: VideoUrls } = {
 // ========================================
 // 📞 CONFIGURAÇÃO DE CONTATOS
 // ========================================
-// ALTERE AQUI OS LINKS E NÚMEROS
+// ⚠️ ALTERE AQUI OS LINKS E NÚMEROS
 
 export const contactInfo = {
   whatsapp: '+5535936180709', // ⬅️ ALTERE AQUI O NÚMERO DO WHATSAPP
@@ -487,7 +487,7 @@ export const contactInfo = {
 // ========================================
 // 🖼️ CONFIGURAÇÃO DE LOGOS E IMAGENS
 // ========================================
-// ALTERE AQUI OS CAMINHOS DAS IMAGENS
+// ⚠️ ALTERE AQUI OS CAMINHOS DAS IMAGENS
 
 export const logoConfig = {
   main: '/logolezz.pro 3 Fundo tranparente.png', // ⬅️ LOGO PRINCIPAL DO HEADER
@@ -501,8 +501,10 @@ export const logoConfig = {
 // ========================================
 // 🔗 CONFIGURAÇÃO DE INTEGRAÇÕES
 // ========================================
-// ALTERE AQUI OS LOGOS DAS FERRAMENTAS QUE VOCÊS INTEGRAM
-// Para adicionar novos logos, coloque os arquivos na pasta /public/logos/ e adicione aqui
+// ⚠️ PARA ADICIONAR LOGOS DAS INTEGRAÇÕES:
+// 1. Crie a pasta: /public/logos/
+// 2. Coloque os arquivos PNG/JPG dos logos
+// 3. Altere os caminhos abaixo
 
 export const integrationLogos = [
   { 
@@ -560,8 +562,9 @@ export const integrationLogos = [
 // ========================================
 // 🏢 CONFIGURAÇÃO DE APOIADORES
 // ========================================
-// ALTERE AQUI OS LOGOS DOS APOIADORES
-// Para adicionar novos apoiadores, coloque os arquivos na pasta /public/logos/ e adicione aqui
+// ⚠️ PARA ADICIONAR LOGOS DOS APOIADORES:
+// 1. Coloque os arquivos PNG/JPG na pasta /public/logos/
+// 2. Adicione aqui seguindo o formato abaixo
 
 export const supporterLogos = [
   { 

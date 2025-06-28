@@ -32,28 +32,25 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
       {/* Background com vídeo do Vimeo */}
       <div className="absolute inset-0 z-0">
         {/* Vídeo de fundo do Vimeo */}
-        <div className="absolute inset-0 w-full h-full">
-          <iframe
-            src={`${videoUrls.hero[language]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0&transparent=0`}
-            className="absolute inset-0 w-full h-full"
-            style={{ 
-              width: '100vw', 
-              height: '100vh',
-              objectFit: 'cover',
-              pointerEvents: 'none'
-            }}
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            title="Hero Background Video"
-          />
-        </div>
+        <iframe
+          src={`${videoUrls.hero[language]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0`}
+          className="absolute inset-0 w-full h-full"
+          style={{ 
+            width: '100vw', 
+            height: '100vh',
+            border: 'none',
+            pointerEvents: 'none'
+          }}
+          allow="autoplay; fullscreen"
+          allowFullScreen
+          title="Hero Background Video"
+        />
         
         {/* Overlay escuro para melhor legibilidade */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
         
         {/* Fallback caso o vídeo não carregue */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
             <div className="absolute top-3/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
@@ -63,7 +60,7 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Main Headline - Fonte menor */}
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
