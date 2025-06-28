@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 import { Language } from '../types/language';
-import { translations, contactInfo } from '../data/translations';
+import { translations, contactInfo, videoUrls } from '../data/translations';
 
 interface HeroProps {
   language: Language;
@@ -29,10 +29,27 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video */}
+      {/* Background com vídeo do Vimeo */}
       <div className="absolute inset-0 z-0">
-        <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-          {/* Animated background pattern */}
+        {/* Vídeo de fundo do Vimeo */}
+        <iframe
+          src={`${videoUrls.hero[language]}?background=1&autoplay=1&loop=1&muted=1&controls=0`}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ 
+            width: '100vw', 
+            height: '100vh',
+            pointerEvents: 'none'
+          }}
+          frameBorder="0"
+          allow="autoplay; fullscreen"
+          allowFullScreen
+        />
+        
+        {/* Overlay escuro para melhor legibilidade */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Fallback caso o vídeo não carregue */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
             <div className="absolute top-3/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
@@ -49,13 +66,13 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
             {t.title[language]}
           </h1>
 
-          {/* Sub-headline - Fonte menor */}
-          <h2 className="text-base md:text-lg lg:text-xl text-gray-300 mb-5 leading-relaxed font-light">
+          {/* Sub-headline - Fonte ainda menor */}
+          <h2 className="text-sm md:text-base lg:text-lg text-gray-300 mb-4 leading-relaxed font-light">
             {t.subtitle[language]}
           </h2>
 
           {/* Secondary Slogan - Fonte menor */}
-          <p className="text-sm md:text-base text-gray-400 mb-8 font-medium">
+          <p className="text-xs md:text-sm text-gray-400 mb-8 font-medium">
             {t.slogan[language]}
           </p>
 

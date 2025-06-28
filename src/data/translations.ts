@@ -418,32 +418,37 @@ export const translations = {
   }
 };
 
-// CONFIGURAÇÃO DE VÍDEOS - ALTERE AQUI OS URLs DOS VÍDEOS
+// CONFIGURAÇÃO DE VÍDEOS - ALTERE AQUI OS URLs DOS VÍDEOS DO VIMEO
 export const videoUrls: { [key: string]: VideoUrls } = {
   hero: {
-    'pt-BR': 'https://vimeo.com/1092831931',
-    'en-US': 'https://www.youtube.com/c/EnglishinGeneral',
-    'es': 'https://www.reddit.com/r/Spanish/comments/1h309wr/general_you_in_spanish/'
+    'pt-BR': 'https://player.vimeo.com/video/1092831931',
+    'en-US': 'https://player.vimeo.com/video/1092831931',
+    'es': 'https://player.vimeo.com/video/1092831931'
+  },
+  purpose: {
+    'pt-BR': 'https://player.vimeo.com/video/1093077093',
+    'en-US': 'https://player.vimeo.com/video/1093077093',
+    'es': 'https://player.vimeo.com/video/1093077093'
   },
   pillar1: {
-    'pt-BR': 'https://vimeo.com/1093077093',
-    'en-US': 'https://www.youtube.com/watch?v=QTlJwUNOPdk',
-    'es': 'https://www.youtube.com/watch?v=QTlJwUNOPdk'
+    'pt-BR': 'https://player.vimeo.com/video/1093077093',
+    'en-US': 'https://player.vimeo.com/video/1093077093',
+    'es': 'https://player.vimeo.com/video/1093077093'
   },
   pillar2: {
-    'pt-BR': 'https://www.youtube.com/watch?v=neqvVnglR3Q',
-    'en-US': 'https://www.youtube.com/watch?v=neqvVnglR3Q',
-    'es': 'https://www.youtube.com/watch?v=neqvVnglR3Q'
+    'pt-BR': 'https://player.vimeo.com/video/1093077093',
+    'en-US': 'https://player.vimeo.com/video/1093077093',
+    'es': 'https://player.vimeo.com/video/1093077093'
   },
   pillar3: {
-    'pt-BR': 'https://www.youtube.com/watch?v=1DBSJswDFNQ',
-    'en-US': 'https://www.youtube.com/watch?v=1DBSJswDFNQ',
-    'es': 'https://www.youtube.com/watch?v=1DBSJswDFNQ'
+    'pt-BR': 'https://player.vimeo.com/video/1093077093',
+    'en-US': 'https://player.vimeo.com/video/1093077093',
+    'es': 'https://player.vimeo.com/video/1093077093'
   },
   pillar4: {
-    'pt-BR': 'https://pillarfour.com/',
-    'en-US': 'https://pillarfour.com/',
-    'es': 'https://pillarfour.com/'
+    'pt-BR': 'https://player.vimeo.com/video/1093077093',
+    'en-US': 'https://player.vimeo.com/video/1093077093',
+    'es': 'https://player.vimeo.com/video/1093077093'
   }
 };
 

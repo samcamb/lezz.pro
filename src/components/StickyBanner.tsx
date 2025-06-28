@@ -22,22 +22,15 @@ const StickyBanner: React.FC<StickyBannerProps> = ({ language }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-black text-white shadow-2xl">
+    <div className="fixed bottom-0 left-0 right-0 z-40 shadow-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3">
-          <div className="flex-1 text-center">
-            <p className="text-sm font-medium">
-              {t.text[language]}
-            </p>
-          </div>
-          <button
-            onClick={handleWhatsApp}
-            className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition-all duration-300 transform hover:scale-105 ml-4"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="text-sm font-medium">WhatsApp</span>
-          </button>
-        </div>
+        <button
+          onClick={handleWhatsApp}
+          className="w-full bg-green-600 text-white py-4 rounded-t-2xl hover:bg-green-700 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-3 font-semibold text-base shadow-xl"
+        >
+          <MessageCircle className="w-5 h-5" />
+          <span>{t.text[language]} pelo WhatsApp</span>
+        </button>
       </div>
     </div>
   );
