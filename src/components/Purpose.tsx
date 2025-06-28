@@ -88,7 +88,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               <div className="w-full h-full flex items-center justify-center relative">
                 {/* Vídeo do Vimeo para a seção Purpose */}
                 <iframe
-                  src={`${videoUrls.purpose?.[language] || videoUrls.hero[language]}?background=1&autoplay=1&loop=1&muted=1&controls=0`}
+                  src={`${videoUrls.purpose?.[language] || videoUrls.hero[language]}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`}
                   className="absolute inset-0 w-full h-full object-cover rounded-3xl"
                   frameBorder="0"
                   allow="autoplay; fullscreen"

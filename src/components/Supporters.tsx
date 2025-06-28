@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Language } from '../types/language';
-import { translations } from '../data/translations';
+import { translations, supporterLogos } from '../data/translations';
 
 interface SupportersProps {
   language: Language;
@@ -10,13 +10,8 @@ const Supporters: React.FC<SupportersProps> = ({ language }) => {
   const t = translations.supporters;
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const supporters = [
-    { name: 'SEBRAE', logo: 'SEBRAE' },
-    // Adicione mais apoiadores aqui conforme necessário
-  ];
-
   // Duplicar os itens para criar o efeito de loop infinito
-  const duplicatedSupporters = [...supporters, ...supporters, ...supporters];
+  const duplicatedSupporters = [...supporterLogos, ...supporterLogos, ...supporterLogos];
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -76,8 +71,22 @@ const Supporters: React.FC<SupportersProps> = ({ language }) => {
             >
               {duplicatedSupporters.map((supporter, index) => (
                 <div key={index} className="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300 flex-shrink-0">
-                  <div className="w-24 h-12 bg-gradient-to-r from-blue-600 to-green-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">{supporter.logo}</span>
+                  <div className="w-24 h-12 flex items-center justify-center">
+                    {/* Tenta carregar a imagem, se falhar usa o fallback */}
+                    <img 
+                      src={supporter.logo} 
+                      alt={supporter.name}
+                      className="max-w-full max-h-full object-contain"
+                      onError={(e) => {
+                        // Se a imagem falhar, mostra o texto fallback
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `<span class="text-black font-bold text-sm">${supporter.fallback}</span>`;
+                        }
+                      }}
+                    />
                   </div>
                 </div>
               ))}

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Language } from '../types/language';
-import { translations } from '../data/translations';
+import { translations, integrationLogos } from '../data/translations';
 
 interface IntegrationsProps {
   language: Language;
@@ -10,21 +10,8 @@ const Integrations: React.FC<IntegrationsProps> = ({ language }) => {
   const t = translations.integrations;
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const integrations = [
-    { name: 'WhatsApp', logo: '💬' },
-    { name: 'Meta', logo: '🔵' },
-    { name: 'Facebook', logo: '📘' },
-    { name: 'Instagram', logo: '📷' },
-    { name: 'Google Ads', logo: '🎯' },
-    { name: 'ChatGPT', logo: '🤖' },
-    { name: 'Gemini', logo: '💎' },
-    { name: 'Claude', logo: '🧠' },
-    { name: 'Anthropic', logo: '⚡' },
-    { name: 'Deepseek', logo: '🔍' }
-  ];
-
   // Duplicar os itens para criar o efeito de loop infinito
-  const duplicatedIntegrations = [...integrations, ...integrations];
+  const duplicatedIntegrations = [...integrationLogos, ...integrationLogos];
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -93,7 +80,22 @@ const Integrations: React.FC<IntegrationsProps> = ({ language }) => {
                 className="flex flex-col items-center space-y-2 group hover:scale-110 transition-transform duration-300 flex-shrink-0"
               >
                 <div className="w-14 h-14 bg-white rounded-2xl shadow-lg flex items-center justify-center text-xl group-hover:shadow-xl transition-shadow duration-300">
-                  {integration.logo}
+                  {/* Tenta carregar a imagem, se falhar usa o fallback */}
+                  <img 
+                    src={integration.logo} 
+                    alt={integration.name}
+                    className="w-8 h-8 object-contain"
+                    onError={(e) => {
+                      // Se a imagem falhar, mostra o emoji fallback
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = integration.fallback;
+                        parent.className += ' text-xl';
+                      }
+                    }}
+                  />
                 </div>
                 <span className="text-xs font-medium text-gray-600 group-hover:text-black transition-colors whitespace-nowrap">
                   {integration.name}

@@ -418,18 +418,28 @@ export const translations = {
   }
 };
 
-// CONFIGURAÇÃO DE VÍDEOS - ALTERE AQUI OS URLs DOS VÍDEOS DO VIMEO
+// ========================================
+// 🎥 CONFIGURAÇÃO DE VÍDEOS DO VIMEO
+// ========================================
+// ALTERE AQUI OS URLs DOS VÍDEOS DO VIMEO
+// Formato: https://player.vimeo.com/video/SEU_VIDEO_ID
+
 export const videoUrls: { [key: string]: VideoUrls } = {
+  // Vídeo de fundo do Hero (seção principal)
   hero: {
     'pt-BR': 'https://player.vimeo.com/video/1092831931',
-    'en-US': 'https://player.vimeo.com/video/1092831931',
+    'en-US': 'https://player.vimeo.com/video/1092831931', 
     'es': 'https://player.vimeo.com/video/1092831931'
   },
+  
+  // Vídeo da seção Purpose (IA com Propósito)
   purpose: {
     'pt-BR': 'https://player.vimeo.com/video/1093077093',
     'en-US': 'https://player.vimeo.com/video/1093077093',
     'es': 'https://player.vimeo.com/video/1093077093'
   },
+  
+  // Vídeos dos 4 Pilares do Método
   pillar1: {
     'pt-BR': 'https://player.vimeo.com/video/1093077093',
     'en-US': 'https://player.vimeo.com/video/1093077093',
@@ -452,29 +462,116 @@ export const videoUrls: { [key: string]: VideoUrls } = {
   }
 };
 
-// CONFIGURAÇÃO DE CONTATOS - ALTERE AQUI OS LINKS E NÚMEROS
+// ========================================
+// 📞 CONFIGURAÇÃO DE CONTATOS
+// ========================================
+// ALTERE AQUI OS LINKS E NÚMEROS
+
 export const contactInfo = {
-  whatsapp: '+5535936180709', // ALTERE AQUI O NÚMERO DO WHATSAPP
+  whatsapp: '+5535936180709', // ⬅️ ALTERE AQUI O NÚMERO DO WHATSAPP
   social: {
-    linkedin: 'https://www.linkedin.com/company/lezzpro', // ALTERE AQUI O LINK DO LINKEDIN
-    instagram: 'https://www.instagram.com/lezz.pro', // ALTERE AQUI O LINK DO INSTAGRAM
+    linkedin: 'https://www.linkedin.com/company/lezzpro', // ⬅️ ALTERE AQUI O LINK DO LINKEDIN DA EMPRESA
+    instagram: 'https://www.instagram.com/lezz.pro', // ⬅️ ALTERE AQUI O LINK DO INSTAGRAM DA EMPRESA
     priscilla: {
-      linkedin: 'https://www.linkedin.com/in/priscilla-rubbo/', // ALTERE AQUI O LINKEDIN DA PRISCILLA
-      instagram: 'https://www.instagram.com/priscillarubbo/' // ALTERE AQUI O INSTAGRAM DA PRISCILLA
+      linkedin: 'https://www.linkedin.com/in/priscilla-rubbo/', // ⬅️ ALTERE AQUI O LINKEDIN DA PRISCILLA
+      instagram: 'https://www.instagram.com/priscillarubbo/' // ⬅️ ALTERE AQUI O INSTAGRAM DA PRISCILLA
     },
     samuel: {
-      linkedin: 'https://www.linkedin.com/in/samuel-de-almeida-19a78b44/', // ALTERE AQUI O LINKEDIN DO SAMUEL
-      instagram: 'https://www.instagram.com/_samueldealmeida/' // ALTERE AQUI O INSTAGRAM DO SAMUEL
+      linkedin: 'https://www.linkedin.com/in/samuel-de-almeida-19a78b44/', // ⬅️ ALTERE AQUI O LINKEDIN DO SAMUEL
+      instagram: 'https://www.instagram.com/_samueldealmeida/' // ⬅️ ALTERE AQUI O INSTAGRAM DO SAMUEL
     }
   }
 };
 
-// CONFIGURAÇÃO DE LOGOS - ALTERE AQUI OS CAMINHOS DAS IMAGENS
+// ========================================
+// 🖼️ CONFIGURAÇÃO DE LOGOS E IMAGENS
+// ========================================
+// ALTERE AQUI OS CAMINHOS DAS IMAGENS
+
 export const logoConfig = {
-  main: '/logolezz.pro 3 Fundo tranparente.png', // LOGO PRINCIPAL DO HEADER
-  footer: '/logolezz.pro 2.png', // LOGO DO FOOTER
+  main: '/logolezz.pro 3 Fundo tranparente.png', // ⬅️ LOGO PRINCIPAL DO HEADER
+  footer: '/logolezz.pro 2.png', // ⬅️ LOGO DO FOOTER
   founders: {
-    priscilla: '/pri.png', // FOTO DA PRISCILLA
-    samuel: '/sam.webp' // FOTO DO SAMUEL
+    priscilla: '/pri.png', // ⬅️ FOTO DA PRISCILLA
+    samuel: '/sam.webp' // ⬅️ FOTO DO SAMUEL
   }
 };
+
+// ========================================
+// 🔗 CONFIGURAÇÃO DE INTEGRAÇÕES
+// ========================================
+// ALTERE AQUI OS LOGOS DAS FERRAMENTAS QUE VOCÊS INTEGRAM
+// Para adicionar novos logos, coloque os arquivos na pasta /public/ e adicione aqui
+
+export const integrationLogos = [
+  { 
+    name: 'WhatsApp', 
+    logo: '/logos/whatsapp.png', // ⬅️ Coloque o arquivo whatsapp.png na pasta /public/logos/
+    fallback: '💬' // Emoji usado se a imagem não carregar
+  },
+  { 
+    name: 'Meta', 
+    logo: '/logos/meta.png', // ⬅️ Coloque o arquivo meta.png na pasta /public/logos/
+    fallback: '🔵' 
+  },
+  { 
+    name: 'Facebook', 
+    logo: '/logos/facebook.png', // ⬅️ Coloque o arquivo facebook.png na pasta /public/logos/
+    fallback: '📘' 
+  },
+  { 
+    name: 'Instagram', 
+    logo: '/logos/instagram.png', // ⬅️ Coloque o arquivo instagram.png na pasta /public/logos/
+    fallback: '📷' 
+  },
+  { 
+    name: 'Google Ads', 
+    logo: '/logos/google-ads.png', // ⬅️ Coloque o arquivo google-ads.png na pasta /public/logos/
+    fallback: '🎯' 
+  },
+  { 
+    name: 'ChatGPT', 
+    logo: '/logos/chatgpt.png', // ⬅️ Coloque o arquivo chatgpt.png na pasta /public/logos/
+    fallback: '🤖' 
+  },
+  { 
+    name: 'Gemini', 
+    logo: '/logos/gemini.png', // ⬅️ Coloque o arquivo gemini.png na pasta /public/logos/
+    fallback: '💎' 
+  },
+  { 
+    name: 'Claude', 
+    logo: '/logos/claude.png', // ⬅️ Coloque o arquivo claude.png na pasta /public/logos/
+    fallback: '🧠' 
+  },
+  { 
+    name: 'Anthropic', 
+    logo: '/logos/anthropic.png', // ⬅️ Coloque o arquivo anthropic.png na pasta /public/logos/
+    fallback: '⚡' 
+  },
+  { 
+    name: 'Deepseek', 
+    logo: '/logos/deepseek.png', // ⬅️ Coloque o arquivo deepseek.png na pasta /public/logos/
+    fallback: '🔍' 
+  }
+];
+
+// ========================================
+// 🏢 CONFIGURAÇÃO DE APOIADORES
+// ========================================
+// ALTERE AQUI OS LOGOS DOS APOIADORES
+// Para adicionar novos apoiadores, coloque os arquivos na pasta /public/ e adicione aqui
+
+export const supporterLogos = [
+  { 
+    name: 'SEBRAE', 
+    logo: '/logos/sebrae.png', // ⬅️ Coloque o arquivo sebrae.png na pasta /public/logos/
+    fallback: 'SEBRAE' // Texto usado se a imagem não carregar
+  }
+  // Adicione mais apoiadores aqui seguindo o mesmo formato:
+  // { 
+  //   name: 'Nome do Apoiador', 
+  //   logo: '/logos/apoiador.png',
+  //   fallback: 'APOIADOR' 
+  // }
+];

@@ -33,7 +33,7 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
       <div className="absolute inset-0 z-0">
         {/* Vídeo de fundo do Vimeo */}
         <iframe
-          src={`${videoUrls.hero[language]}?background=1&autoplay=1&loop=1&muted=1&controls=0`}
+          src={`${videoUrls.hero[language]}?background=1&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0`}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ 
             width: '100vw', 
@@ -67,7 +67,7 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
           </h1>
 
           {/* Sub-headline - Fonte ainda menor */}
-          <h2 className="text-sm md:text-base lg:text-lg text-gray-300 mb-4 leading-relaxed font-light">
+          <h2 className="text-xs md:text-sm lg:text-base text-gray-300 mb-4 leading-relaxed font-light">
             {t.subtitle[language]}
           </h2>
 

@@ -46,12 +46,12 @@ const Header: React.FC<HeaderProps> = ({ language, setLanguage, currentPage, set
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo - Aumentado */}
+          {/* Logo - Aumentado ainda mais */}
           <div className="flex-shrink-0">
             <img 
               src={logoConfig.main}
               alt="Lezz.pro" 
-              className="h-9 w-auto cursor-pointer"
+              className="h-12 w-auto cursor-pointer" // Aumentado de h-9 para h-12
               onClick={() => handleNavClick('home')}
             />
           </div>
