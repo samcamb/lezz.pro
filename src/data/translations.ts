@@ -421,7 +421,7 @@ export const translations = {
 // CONFIGURAÇÃO DE VÍDEOS - ALTERE AQUI OS URLs DOS VÍDEOS
 export const videoUrls: { [key: string]: VideoUrls } = {
   hero: {
-    'pt-BR': 'https://www.youtube.com/watch?v=RkOqjkero10',
+    'pt-BR': 'https://vimeo.com/1092831931',
     'en-US': 'https://www.youtube.com/c/EnglishinGeneral',
     'es': 'https://www.reddit.com/r/Spanish/comments/1h309wr/general_you_in_spanish/'
   },
