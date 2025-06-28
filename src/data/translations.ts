@@ -426,7 +426,7 @@ export const videoUrls: { [key: string]: VideoUrls } = {
     'es': 'https://www.reddit.com/r/Spanish/comments/1h309wr/general_you_in_spanish/'
   },
   pillar1: {
-    'pt-BR': 'https://www.youtube.com/watch?v=QTlJwUNOPdk',
+    'pt-BR': 'https://vimeo.com/1093077093',
     'en-US': 'https://www.youtube.com/watch?v=QTlJwUNOPdk',
     'es': 'https://www.youtube.com/watch?v=QTlJwUNOPdk'
   },
@@ -449,17 +449,17 @@ export const videoUrls: { [key: string]: VideoUrls } = {
 
 // CONFIGURAÇÃO DE CONTATOS - ALTERE AQUI OS LINKS E NÚMEROS
 export const contactInfo = {
-  whatsapp: '+5511999999999', // ALTERE AQUI O NÚMERO DO WHATSAPP
+  whatsapp: '+5535936180709', // ALTERE AQUI O NÚMERO DO WHATSAPP
   social: {
-    linkedin: '#', // ALTERE AQUI O LINK DO LINKEDIN
-    instagram: '#', // ALTERE AQUI O LINK DO INSTAGRAM
+    linkedin: 'https://www.linkedin.com/company/lezzpro', // ALTERE AQUI O LINK DO LINKEDIN
+    instagram: 'https://www.instagram.com/lezz.pro', // ALTERE AQUI O LINK DO INSTAGRAM
     priscilla: {
-      linkedin: '#', // ALTERE AQUI O LINKEDIN DA PRISCILLA
-      instagram: '#' // ALTERE AQUI O INSTAGRAM DA PRISCILLA
+      linkedin: 'https://www.linkedin.com/in/priscilla-rubbo/', // ALTERE AQUI O LINKEDIN DA PRISCILLA
+      instagram: 'https://www.instagram.com/priscillarubbo/' // ALTERE AQUI O INSTAGRAM DA PRISCILLA
     },
     samuel: {
-      linkedin: '#', // ALTERE AQUI O LINKEDIN DO SAMUEL
-      instagram: '#' // ALTERE AQUI O INSTAGRAM DO SAMUEL
+      linkedin: 'https://www.linkedin.com/in/samuel-de-almeida-19a78b44/', // ALTERE AQUI O LINKEDIN DO SAMUEL
+      instagram: 'https://www.instagram.com/_samueldealmeida/' // ALTERE AQUI O INSTAGRAM DO SAMUEL
     }
   }
 };
