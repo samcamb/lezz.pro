@@ -501,7 +501,7 @@ export const logoConfig = {
 // ========================================
 // 🔗 CONFIGURAÇÃO DE INTEGRAÇÕES
 // ========================================
-// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs DIRETAS
+// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs OFICIAIS DA WIKIPEDIA
 
 export const integrationLogos = [
   { 
@@ -541,17 +541,17 @@ export const integrationLogos = [
   },
   { 
     name: 'Claude', 
-    logo: 'https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@latest/packages/static-png/dark/claude.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Claude_AI_logo.svg',
     fallback: '🧠' 
   },
   { 
     name: 'Anthropic', 
-    logo: 'https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@latest/packages/static-png/dark/anthropic.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg',
     fallback: '⚡' 
   },
   { 
     name: 'DeepSeek', 
-    logo: 'https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@latest/packages/static-png/dark/deepseek.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/DeepSeek_logo.svg',
     fallback: '🔍' 
   }
 ];
@@ -559,7 +559,7 @@ export const integrationLogos = [
 // ========================================
 // 🏢 CONFIGURAÇÃO DE APOIADORES
 // ========================================
-// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs DIRETAS
+// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs OFICIAIS DA WIKIPEDIA
 
 export const supporterLogos = [
   { 
