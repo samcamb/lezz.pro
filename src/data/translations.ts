@@ -436,8 +436,8 @@ export const videoUrls: { [key: string]: VideoUrls } = {
   // 🎬 Vídeo da seção Purpose (IA com Propósito)
   purpose: {
     'pt-BR': 'https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=1&title=0&byline=0&portrait=0&background=1',
-    'en-US': 'https://player.vimeo.com/video/1093077093',
-    'es': 'https://player.vimeo.com/video/1093077093'
+    'en-US': 'https://player.vimeo.com/video/1092831931',
+    'es': 'https://player.vimeo.com/video/1092831931'
   },
   
   // 🎬 Vídeos dos 4 Pilares do Método
@@ -448,18 +448,18 @@ export const videoUrls: { [key: string]: VideoUrls } = {
   },
   pillar2: {
     'pt-BR': 'https://player.vimeo.com/video/1093094206?&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1',
-    'en-US': 'https://player.vimeo.com/video/1093077093',
-    'es': 'https://player.vimeo.com/video/1093077093'
+    'en-US': 'https://player.vimeo.com/video/1093094206',
+    'es': 'https://player.vimeo.com/video/1093094206'
   },
   pillar3: {
-    'pt-BR': 'https://player.vimeo.com/video/1093077093',
-    'en-US': 'https://player.vimeo.com/video/1093077093',
-    'es': 'https://player.vimeo.com/video/1093077093'
+    'pt-BR': 'https://player.vimeo.com/video/1093072840?h=58ae0e81c1&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1',
+    'en-US': 'https://player.vimeo.com/video/1093072840',
+    'es': 'https://player.vimeo.com/video/1093072840'
   },
   pillar4: {
-    'pt-BR': 'https://player.vimeo.com/video/1093077093',
-    'en-US': 'https://player.vimeo.com/video/1093077093',
-    'es': 'https://player.vimeo.com/video/1093077093'
+    'pt-BR': 'https://player.vimeo.com/video/1093100258?&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1',
+    'en-US': 'https://player.vimeo.com/video/1093100258',
+    'es': 'https://player.vimeo.com/video/1093100258'
   }
 };
 
