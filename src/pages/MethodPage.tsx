@@ -9,6 +9,7 @@ interface MethodPageProps {
 
 const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [loadedVideos, setLoadedVideos] = useState<Set<string>>(new Set());
   const videoRefs = useRef<{ [key: string]: HTMLIFrameElement | null }>({});
   const t = translations.method;
 
@@ -17,22 +18,42 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
     window.open(`https://wa.me/${contactInfo.whatsapp}?text=${encodedMessage}`, '_blank');
   };
 
-  const handlePlayPause = (videoId: string) => {
+  const handlePlay = (videoId: string, vimeoId: string) => {
     const iframe = videoRefs.current[videoId];
     if (iframe) {
-      if (playingVideo === videoId) {
-        // Pause the video
-        iframe.contentWindow?.postMessage('{"method":"pause"}', '*');
-        setPlayingVideo(null);
-      } else {
-        // Stop any currently playing video
-        if (playingVideo && videoRefs.current[playingVideo]) {
-          videoRefs.current[playingVideo]?.contentWindow?.postMessage('{"method":"pause"}', '*');
-        }
-        // Play the new video
-        iframe.contentWindow?.postMessage('{"method":"play"}', '*');
-        setPlayingVideo(videoId);
+      // Para qualquer vídeo que esteja tocando
+      if (playingVideo && videoRefs.current[playingVideo]) {
+        videoRefs.current[playingVideo]?.contentWindow?.postMessage('{"method":"pause"}', '*');
       }
+      
+      // Carrega o vídeo com autoplay e áudio habilitado
+      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&autoplay=1&muted=0`;
+      iframe.src = newSrc;
+      setPlayingVideo(videoId);
+      setLoadedVideos(prev => new Set(prev).add(videoId));
+    }
+  };
+
+  const handlePause = (videoId: string) => {
+    const iframe = videoRefs.current[videoId];
+    if (iframe) {
+      iframe.contentWindow?.postMessage('{"method":"pause"}', '*');
+      setPlayingVideo(null);
+    }
+  };
+
+  const resetVideo = (videoId: string, vimeoId: string) => {
+    const iframe = videoRefs.current[videoId];
+    if (iframe) {
+      // Volta ao estado inicial
+      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1`;
+      iframe.src = initialSrc;
+      setPlayingVideo(null);
+      setLoadedVideos(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(videoId);
+        return newSet;
+      });
     }
   };
 
@@ -70,7 +91,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       ],
       color: 'from-blue-500 to-blue-600',
       videoId: 'pillar1',
-      vimeoSrc: 'https://player.vimeo.com/video/1093077093?h=e8bdd90901&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1'
+      vimeoId: '1093077093'
     },
     {
       step: 2,
@@ -108,7 +129,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       ],
       color: 'from-purple-500 to-purple-600',
       videoId: 'pillar2',
-      vimeoSrc: 'https://player.vimeo.com/video/1093094206?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1'
+      vimeoId: '1093094206'
     },
     {
       step: 3,
@@ -146,7 +167,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       ],
       color: 'from-green-500 to-green-600',
       videoId: 'pillar3',
-      vimeoSrc: 'https://player.vimeo.com/video/1093077093?h=e8bdd90901&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1'
+      vimeoId: '1093072840'
     },
     {
       step: 4,
@@ -184,7 +205,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       ],
       color: 'from-orange-500 to-orange-600',
       videoId: 'pillar4',
-      vimeoSrc: 'https://player.vimeo.com/video/1093077093?h=e8bdd90901&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1'
+      vimeoId: '1093100258'
     }
   ];
 
@@ -259,6 +280,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
               const Icon = pillar.icon;
               const isEven = index % 2 === 0;
               const isPlaying = playingVideo === pillar.videoId;
+              const isLoaded = loadedVideos.has(pillar.videoId);
               
               return (
                 <div key={index} className="bg-white rounded-3xl shadow-xl overflow-hidden">
@@ -298,7 +320,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {/* Vimeo Iframe */}
                         <iframe
                           ref={(el) => { videoRefs.current[pillar.videoId] = el; }}
-                          src={pillar.vimeoSrc}
+                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1`}
                           className="absolute inset-0 w-full h-full"
                           style={{ border: 'none' }}
                           allow="autoplay; fullscreen; picture-in-picture"
@@ -309,7 +331,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {!isPlaying && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                             <button
-                              onClick={() => handlePlayPause(pillar.videoId)}
+                              onClick={() => handlePlay(pillar.videoId, pillar.vimeoId)}
                               className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform duration-300`}
                             >
                               <Play className="w-8 h-8 text-white ml-1" />
@@ -321,10 +343,24 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {isPlaying && (
                           <div className="absolute bottom-3 left-3">
                             <button
-                              onClick={() => handlePlayPause(pillar.videoId)}
+                              onClick={() => handlePause(pillar.videoId)}
                               className="w-10 h-10 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                             >
                               <Pause className="w-5 h-5 text-white" />
+                            </button>
+                          </div>
+                        )}
+                        
+                        {/* Reset Button (when paused after playing) */}
+                        {!isPlaying && isLoaded && (
+                          <div className="absolute top-3 right-3">
+                            <button
+                              onClick={() => resetVideo(pillar.videoId, pillar.vimeoId)}
+                              className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"
+                            >
+                              {language === 'pt-BR' ? 'Reiniciar' : 
+                               language === 'en-US' ? 'Restart' : 
+                               'Reiniciar'}
                             </button>
                           </div>
                         )}

@@ -9,20 +9,35 @@ interface PurposeProps {
 
 const Purpose: React.FC<PurposeProps> = ({ language }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const t = translations.purpose;
 
-  const handlePlayPause = () => {
+  const handlePlay = () => {
     if (iframeRef.current) {
-      if (isPlaying) {
-        // Pause the video
-        iframeRef.current.contentWindow?.postMessage('{"method":"pause"}', '*');
-        setIsPlaying(false);
-      } else {
-        // Play the video
-        iframeRef.current.contentWindow?.postMessage('{"method":"play"}', '*');
-        setIsPlaying(true);
-      }
+      // Recarrega o iframe com autoplay e áudio habilitado
+      const newSrc = 'https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&autoplay=1&muted=0';
+      iframeRef.current.src = newSrc;
+      setIsPlaying(true);
+      setVideoLoaded(true);
+    }
+  };
+
+  const handlePause = () => {
+    if (iframeRef.current) {
+      // Pausa o vídeo via postMessage
+      iframeRef.current.contentWindow?.postMessage('{"method":"pause"}', '*');
+      setIsPlaying(false);
+    }
+  };
+
+  const resetVideo = () => {
+    if (iframeRef.current) {
+      // Volta ao estado inicial (sem autoplay, com muted)
+      const initialSrc = 'https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1';
+      iframeRef.current.src = initialSrc;
+      setIsPlaying(false);
+      setVideoLoaded(false);
     }
   };
 
@@ -111,11 +126,11 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
                 title="Purpose Video"
               />
               
-              {/* Play/Pause Button Overlay */}
+              {/* Play Button Overlay */}
               {!isPlaying && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                   <button
-                    onClick={handlePlayPause}
+                    onClick={handlePlay}
                     className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
                   >
                     <Play className="w-10 h-10 text-white ml-1" />
@@ -127,10 +142,24 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               {isPlaying && (
                 <div className="absolute bottom-4 left-4">
                   <button
-                    onClick={handlePlayPause}
+                    onClick={handlePause}
                     className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                   >
                     <Pause className="w-6 h-6 text-white" />
+                  </button>
+                </div>
+              )}
+              
+              {/* Reset Button (when paused after playing) */}
+              {!isPlaying && videoLoaded && (
+                <div className="absolute bottom-4 right-4">
+                  <button
+                    onClick={resetVideo}
+                    className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"
+                  >
+                    {language === 'pt-BR' ? 'Reiniciar' : 
+                     language === 'en-US' ? 'Restart' : 
+                     'Reiniciar'}
                   </button>
                 </div>
               )}
