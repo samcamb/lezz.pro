@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bot, BarChart3, Target, BookOpen, ArrowRight, CheckCircle, Play, X } from 'lucide-react';
+import { Bot, BarChart3, Target, BookOpen, ArrowRight, CheckCircle, Play, X, ExternalLink } from 'lucide-react';
 import { Language } from '../types/language';
 import { translations, contactInfo } from '../data/translations';
 
@@ -14,6 +14,10 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
   const handleWhatsApp = (message: string) => {
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${contactInfo.whatsapp}?text=${encodedMessage}`, '_blank');
+  };
+
+  const openVimeoDirectly = (videoId: string) => {
+    window.open(`https://vimeo.com/${videoId}`, '_blank');
   };
 
   const pillars = [
@@ -266,25 +270,36 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         ))}
                       </div>
 
-                      <button 
-                        onClick={() => setActiveVideo(pillar.videoId)}
-                        className="flex items-center space-x-3 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-all duration-300 w-fit"
-                      >
-                        <Play className="w-5 h-5" />
-                        <span className="font-medium">
-                          {language === 'pt-BR' ? 'Ver em Ação' : 
-                           language === 'en-US' ? 'See in Action' : 
-                           'Ver en Acción'}
-                        </span>
-                      </button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <button 
+                          onClick={() => setActiveVideo(pillar.videoId)}
+                          className="flex items-center space-x-3 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-all duration-300"
+                        >
+                          <Play className="w-5 h-5" />
+                          <span className="font-medium">
+                            {language === 'pt-BR' ? 'Ver em Ação' : 
+                             language === 'en-US' ? 'See in Action' : 
+                             'Ver en Acción'}
+                          </span>
+                        </button>
+                        
+                        <button 
+                          onClick={() => openVimeoDirectly(pillar.videoId)}
+                          className="flex items-center space-x-3 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-full hover:border-gray-400 hover:text-gray-900 transition-all duration-300"
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                          <span className="font-medium">
+                            {language === 'pt-BR' ? 'Vimeo' : 
+                             language === 'en-US' ? 'Vimeo' : 
+                             'Vimeo'}
+                          </span>
+                        </button>
+                      </div>
                     </div>
 
                     {/* Visual/Video Preview */}
                     <div className={`bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-6 lg:p-8 ${!isEven ? 'lg:col-start-1' : ''}`}>
-                      <div 
-                        className="w-full max-w-md aspect-video bg-gray-900 rounded-2xl flex items-center justify-center relative overflow-hidden cursor-pointer group"
-                        onClick={() => setActiveVideo(pillar.videoId)}
-                      >
+                      <div className="w-full max-w-md aspect-video bg-gray-900 rounded-2xl flex items-center justify-center relative overflow-hidden group cursor-pointer">
                         {/* Background Image */}
                         <div 
                           className="absolute inset-0 bg-cover bg-center"
@@ -293,33 +308,15 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                           }}
                         />
                         
-                        {/* Video Preview */}
-                        <div className="absolute inset-0">
-                          <div 
-                            style={{
-                              padding: '56.25% 0 0 0',
-                              position: 'relative'
-                            }}
-                          >
-                            <iframe
-                              src={`https://player.vimeo.com/video/${pillar.videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&background=1`}
-                              frameBorder="0"
-                              allow="autoplay; fullscreen; picture-in-picture"
-                              style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%'
-                              }}
-                              title={`Pillar ${pillar.step} Video`}
-                            />
-                          </div>
-                        </div>
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
                         
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm`}>
+                        {/* Play Button */}
+                        <div 
+                          className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                          onClick={() => setActiveVideo(pillar.videoId)}
+                        >
+                          <div className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform duration-300`}>
                             <Play className="w-8 h-8 text-white ml-1" />
                           </div>
                         </div>
@@ -426,27 +423,62 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
             </button>
             
             {/* Container do Vídeo */}
-            <div 
-              style={{
-                padding: '56.25% 0 0 0',
-                position: 'relative'
-              }}
-            >
-              <iframe
-                src={`https://player.vimeo.com/video/${activeVideo}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`}
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
+            <div className="bg-gray-900 rounded-lg overflow-hidden">
+              <div 
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '8px'
+                  padding: '56.25% 0 0 0',
+                  position: 'relative'
                 }}
-                title="Method Video"
-              />
+              >
+                <iframe
+                  src={`https://player.vimeo.com/video/${activeVideo}?autoplay=1&title=0&byline=0&portrait=0`}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%'
+                  }}
+                  title="Method Video"
+                  onError={() => {
+                    // Se falhar, redireciona para o Vimeo
+                    if (activeVideo) {
+                      openVimeoDirectly(activeVideo);
+                      setActiveVideo(null);
+                    }
+                  }}
+                />
+              </div>
+              
+              {/* Fallback se o iframe não carregar */}
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-800 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <div className="text-center text-white space-y-4">
+                  <div className="text-lg font-medium">
+                    {language === 'pt-BR' ? 'Problema ao carregar?' : 
+                     language === 'en-US' ? 'Problem loading?' : 
+                     '¿Problema al cargar?'}
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (activeVideo) {
+                        openVimeoDirectly(activeVideo);
+                        setActiveVideo(null);
+                      }
+                    }}
+                    className="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors mx-auto"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    <span>
+                      {language === 'pt-BR' ? 'Abrir no Vimeo' : 
+                       language === 'en-US' ? 'Open on Vimeo' : 
+                       'Abrir en Vimeo'}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

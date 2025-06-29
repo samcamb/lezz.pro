@@ -31,38 +31,59 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video Container */}
       <div className="absolute inset-0 w-full h-full">
+        {/* Fallback Background Image */}
         <div 
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`
           }}
-        >
-          {/* Vídeo Background usando embed direto */}
-          <div className="absolute inset-0 w-full h-full">
+        />
+        
+        {/* Video Background - Usando método mais compatível */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ filter: 'brightness(0.7)' }}
+            onError={(e) => {
+              // Se o vídeo falhar, esconde o elemento
+              const target = e.target as HTMLVideoElement;
+              target.style.display = 'none';
+            }}
+          >
+            {/* Múltiplas fontes para compatibilidade */}
+            <source src="https://player.vimeo.com/external/1092831931.hd.mp4?s=YOUR_HASH&profile_id=175" type="video/mp4" />
+            <source src="https://player.vimeo.com/external/1092831931.sd.mp4?s=YOUR_HASH&profile_id=164" type="video/mp4" />
+            
+            {/* Fallback para navegadores que não suportam video */}
             <div 
+              className="w-full h-full bg-cover bg-center"
               style={{
-                padding: '56.25% 0 0 0',
-                position: 'relative',
-                width: '100%',
-                height: '100%'
+                backgroundImage: `url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`
               }}
-            >
-              <iframe
-                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&background=1"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
-                title="Hero Background Video"
-              />
-            </div>
-          </div>
+            />
+          </video>
+          
+          {/* Iframe como segunda opção - usando configuração mais permissiva */}
+          <iframe
+            src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1&quality=720p"
+            className="absolute inset-0 w-full h-full"
+            style={{
+              border: 'none',
+              pointerEvents: 'none',
+              filter: 'brightness(0.7)'
+            }}
+            allow="autoplay; fullscreen"
+            title="Hero Background Video"
+            onError={(e) => {
+              // Se o iframe falhar, esconde o elemento
+              const target = e.target as HTMLIFrameElement;
+              target.style.display = 'none';
+            }}
+          />
         </div>
       </div>
       
