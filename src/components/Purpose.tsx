@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Target, Users, Lightbulb, Play, X, ExternalLink } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Target, Users, Lightbulb, Play, Pause } from 'lucide-react';
 import { Language } from '../types/language';
 import { translations } from '../data/translations';
 
@@ -8,12 +8,22 @@ interface PurposeProps {
 }
 
 const Purpose: React.FC<PurposeProps> = ({ language }) => {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const t = translations.purpose;
 
-  const openVimeoDirectly = () => {
-    // Abre o vídeo diretamente no Vimeo em nova aba
-    window.open('https://vimeo.com/1093077093', '_blank');
+  const handlePlayPause = () => {
+    if (iframeRef.current) {
+      if (isPlaying) {
+        // Pause the video
+        iframeRef.current.contentWindow?.postMessage('{"method":"pause"}', '*');
+        setIsPlaying(false);
+      } else {
+        // Play the video
+        iframeRef.current.contentWindow?.postMessage('{"method":"play"}', '*');
+        setIsPlaying(true);
+      }
+    }
   };
 
   return (
@@ -90,46 +100,43 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
 
           {/* Video Player */}
           <div className="relative">
-            <div className="aspect-square bg-gray-900 rounded-3xl overflow-hidden relative group">
-              {/* Background Image */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop')`
-                }}
+            <div className="aspect-square bg-gray-900 rounded-3xl overflow-hidden relative">
+              {/* Vimeo Iframe */}
+              <iframe
+                ref={iframeRef}
+                src="https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
+                className="absolute inset-0 w-full h-full"
+                style={{ border: 'none' }}
+                allow="autoplay; fullscreen; picture-in-picture"
+                title="Purpose Video"
               />
               
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
-              
-              {/* Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  {/* Main Play Button */}
+              {/* Play/Pause Button Overlay */}
+              {!isPlaying && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                   <button
-                    onClick={() => setIsVideoOpen(true)}
-                    className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110 group"
+                    onClick={handlePlayPause}
+                    className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
                   >
                     <Play className="w-10 h-10 text-white ml-1" />
                   </button>
-                  
-                  {/* Alternative Button */}
+                </div>
+              )}
+              
+              {/* Pause Button (bottom left when playing) */}
+              {isPlaying && (
+                <div className="absolute bottom-4 left-4">
                   <button
-                    onClick={openVimeoDirectly}
-                    className="flex items-center space-x-2 bg-black/50 text-white px-4 py-2 rounded-full hover:bg-black/70 transition-colors backdrop-blur-sm"
+                    onClick={handlePlayPause}
+                    className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                   >
-                    <ExternalLink className="w-4 h-4" />
-                    <span className="text-sm font-medium">
-                      {language === 'pt-BR' ? 'Ver no Vimeo' : 
-                       language === 'en-US' ? 'Watch on Vimeo' : 
-                       'Ver en Vimeo'}
-                    </span>
+                    <Pause className="w-6 h-6 text-white" />
                   </button>
                 </div>
-              </div>
+              )}
               
               {/* Video Info */}
-              <div className="absolute bottom-4 left-4 right-4">
+              <div className="absolute bottom-4 right-4">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
                   <div className="text-white text-sm font-medium">
                     {language === 'pt-BR' ? 'IA com Propósito' : 
@@ -147,73 +154,6 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
           </div>
         </div>
       </div>
-
-      {/* Modal de Vídeo */}
-      {isVideoOpen && (
-        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-          <div className="relative w-full max-w-4xl">
-            {/* Botão Fechar */}
-            <button
-              onClick={() => setIsVideoOpen(false)}
-              className="absolute -top-12 right-0 z-10 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            
-            {/* Container do Vídeo */}
-            <div className="bg-gray-900 rounded-lg overflow-hidden">
-              <div 
-                style={{
-                  padding: '56.25% 0 0 0',
-                  position: 'relative'
-                }}
-              >
-                <iframe
-                  src="https://player.vimeo.com/video/1093077093?autoplay=1&title=0&byline=0&portrait=0"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%'
-                  }}
-                  title="Purpose Video"
-                  onError={() => {
-                    // Se falhar, redireciona para o Vimeo
-                    window.open('https://vimeo.com/1093077093', '_blank');
-                    setIsVideoOpen(false);
-                  }}
-                />
-              </div>
-              
-              {/* Fallback se o iframe não carregar */}
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
-                <div className="text-center text-white space-y-4">
-                  <div className="text-lg font-medium">
-                    {language === 'pt-BR' ? 'Problema ao carregar o vídeo?' : 
-                     language === 'en-US' ? 'Problem loading video?' : 
-                     '¿Problema al cargar el video?'}
-                  </div>
-                  <button
-                    onClick={openVimeoDirectly}
-                    className="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors mx-auto"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                    <span>
-                      {language === 'pt-BR' ? 'Assistir no Vimeo' : 
-                       language === 'en-US' ? 'Watch on Vimeo' : 
-                       'Ver en Vimeo'}
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
