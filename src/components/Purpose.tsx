@@ -113,9 +113,9 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
             </div>
           </div>
 
-          {/* Video Player */}
+          {/* Video Player - Mudança aqui: aspect-square para aspect-video */}
           <div className="relative">
-            <div className="aspect-square bg-gray-900 rounded-3xl overflow-hidden relative">
+            <div className="aspect-video bg-gray-900 rounded-3xl overflow-hidden relative">
               {/* Vimeo Iframe */}
               <iframe
                 ref={iframeRef}
@@ -152,7 +152,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               
               {/* Reset Button (when paused after playing) */}
               {!isPlaying && videoLoaded && (
-                <div className="absolute bottom-4 right-4">
+                <div className="absolute top-4 right-4">
                   <button
                     onClick={resetVideo}
                     className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"

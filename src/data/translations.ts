@@ -501,60 +501,57 @@ export const logoConfig = {
 // ========================================
 // 🔗 CONFIGURAÇÃO DE INTEGRAÇÕES
 // ========================================
-// ⚠️ PARA ADICIONAR LOGOS DAS INTEGRAÇÕES:
-// 1. Crie a pasta: /public/logos/
-// 2. Coloque os arquivos PNG/JPG dos logos
-// 3. Altere os caminhos abaixo
+// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs DIRETAS
 
 export const integrationLogos = [
   { 
     name: 'WhatsApp', 
-    logo: '/logos/whatsapp.png', // ⬅️ Coloque o arquivo whatsapp.png na pasta /public/logos/
-    fallback: '💬' // Emoji usado se a imagem não carregar
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
+    fallback: '💬'
   },
   { 
     name: 'Meta', 
-    logo: '/logos/meta.png', // ⬅️ Coloque o arquivo meta.png na pasta /public/logos/
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg',
     fallback: '🔵' 
   },
   { 
     name: 'Facebook', 
-    logo: '/logos/facebook.png', // ⬅️ Coloque o arquivo facebook.png na pasta /public/logos/
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg',
     fallback: '📘' 
   },
   { 
     name: 'Instagram', 
-    logo: '/logos/instagram.png', // ⬅️ Coloque o arquivo instagram.png na pasta /public/logos/
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png',
     fallback: '📷' 
   },
   { 
     name: 'Google Ads', 
-    logo: '/logos/google-ads.png', // ⬅️ Coloque o arquivo google-ads.png na pasta /public/logos/
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg',
     fallback: '🎯' 
   },
   { 
     name: 'ChatGPT', 
-    logo: '/logos/chatgpt.png', // ⬅️ Coloque o arquivo chatgpt.png na pasta /public/logos/
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg',
     fallback: '🤖' 
   },
   { 
     name: 'Gemini', 
-    logo: '/logos/gemini.png', // ⬅️ Coloque o arquivo gemini.png na pasta /public/logos/
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg',
     fallback: '💎' 
   },
   { 
     name: 'Claude', 
-    logo: '/logos/claude.png', // ⬅️ Coloque o arquivo claude.png na pasta /public/logos/
+    logo: 'https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@latest/packages/static-png/dark/claude.png',
     fallback: '🧠' 
   },
   { 
     name: 'Anthropic', 
-    logo: '/logos/anthropic.png', // ⬅️ Coloque o arquivo anthropic.png na pasta /public/logos/
+    logo: 'https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@latest/packages/static-png/dark/anthropic.png',
     fallback: '⚡' 
   },
   { 
-    name: 'Deepseek', 
-    logo: '/logos/deepseek.png', // ⬅️ Coloque o arquivo deepseek.png na pasta /public/logos/
+    name: 'DeepSeek', 
+    logo: 'https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@latest/packages/static-png/dark/deepseek.png',
     fallback: '🔍' 
   }
 ];
@@ -562,20 +559,17 @@ export const integrationLogos = [
 // ========================================
 // 🏢 CONFIGURAÇÃO DE APOIADORES
 // ========================================
-// ⚠️ PARA ADICIONAR LOGOS DOS APOIADORES:
-// 1. Coloque os arquivos PNG/JPG na pasta /public/logos/
-// 2. Adicione aqui seguindo o formato abaixo
+// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs DIRETAS
 
 export const supporterLogos = [
   { 
     name: 'SEBRAE', 
-    logo: '/logos/sebrae.png', // ⬅️ Coloque o arquivo sebrae.png na pasta /public/logos/
-    fallback: 'SEBRAE' // Texto usado se a imagem não carregar
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Sebrae.svg',
+    fallback: 'SEBRAE'
+  },
+  { 
+    name: 'SEBRAE Startups', 
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Sebrae.svg',
+    fallback: 'SEBRAE Startups'
   }
-  // Adicione mais apoiadores aqui seguindo o mesmo formato:
-  // { 
-  //   name: 'Nome do Apoiador', 
-  //   logo: '/logos/apoiador.png',
-  //   fallback: 'APOIADOR' 
-  // }
 ];
