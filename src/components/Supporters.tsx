@@ -10,8 +10,8 @@ const Supporters: React.FC<SupportersProps> = ({ language }) => {
   const t = translations.supporters;
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Duplicar os itens para criar o efeito de loop infinito
-  const duplicatedSupporters = [...supporterLogos, ...supporterLogos, ...supporterLogos];
+  // Não duplicar tanto - apenas 2 apoiadores
+  const duplicatedSupporters = [...supporterLogos, ...supporterLogos];
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -19,13 +19,13 @@ const Supporters: React.FC<SupportersProps> = ({ language }) => {
 
     let animationId: number;
     let scrollPosition = 0;
-    const scrollSpeed = 0.3;
+    const scrollSpeed = 0.2; // Mais lento já que são poucos itens
 
     const animate = () => {
       scrollPosition += scrollSpeed;
       
       // Reset quando chegar ao final da primeira sequência
-      if (scrollPosition >= scrollContainer.scrollWidth / 3) {
+      if (scrollPosition >= scrollContainer.scrollWidth / 2) {
         scrollPosition = 0;
       }
       
@@ -71,7 +71,7 @@ const Supporters: React.FC<SupportersProps> = ({ language }) => {
             >
               {duplicatedSupporters.map((supporter, index) => (
                 <div key={index} className="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300 flex-shrink-0">
-                  <div className="w-24 h-12 flex items-center justify-center">
+                  <div className="w-32 h-16 flex items-center justify-center">
                     {/* Tenta carregar a imagem, se falhar usa o fallback */}
                     <img 
                       src={supporter.logo} 

@@ -501,7 +501,7 @@ export const logoConfig = {
 // ========================================
 // 🔗 CONFIGURAÇÃO DE INTEGRAÇÕES
 // ========================================
-// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs OFICIAIS DA WIKIPEDIA
+// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs PNG OFICIAIS
 
 export const integrationLogos = [
   { 
@@ -541,7 +541,7 @@ export const integrationLogos = [
   },
   { 
     name: 'Claude', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Claude_AI_logo.svg',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Claude_AI_logo.svg/690px-Claude_AI_logo.svg.png',
     fallback: '🧠' 
   },
   { 
@@ -551,7 +551,7 @@ export const integrationLogos = [
   },
   { 
     name: 'DeepSeek', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/DeepSeek_logo.svg',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/DeepSeek_logo.svg/512px-DeepSeek_logo.svg.png',
     fallback: '🔍' 
   }
 ];
@@ -564,7 +564,7 @@ export const integrationLogos = [
 export const supporterLogos = [
   { 
     name: 'SEBRAE', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Sebrae.svg',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Sebrae.svg/960px-Sebrae.svg.png',
     fallback: 'SEBRAE'
   },
   { 
