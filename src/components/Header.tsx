@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ language, setLanguage, currentPage, set
             <img 
               src={logoConfig.main}
               alt="Lezz.pro" 
-              className="h-16 w-auto cursor-pointer" // Aumentado de h-12 para h-16
+              className="h-20 w-auto cursor-pointer" // Aumentado de h-12 para h-16
               onClick={() => handleNavClick('home')}
             />
           </div>
