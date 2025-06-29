@@ -83,7 +83,7 @@ const WhoWeHelp: React.FC<WhoWeHelpProps> = ({ language }) => {
                   };
                   
                   const message = encodeURIComponent(messages[language]);
-                  window.open(`https://wa.me/5511999999999?text=${message}`, '_blank');
+                  window.open(`https://wa.me/5535936180709?text=${message}`, '_blank');
                 }}
                 className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 font-semibold text-base"
               >
