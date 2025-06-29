@@ -109,7 +109,7 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <button
               onClick={handleWhatsApp}
               className="group flex items-center space-x-3 bg-white text-black px-5 py-2.5 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 font-semibold text-sm"
@@ -126,12 +126,12 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
               <span>{t.cta2[language]}</span>
             </button>
           </div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="w-5 h-8 border-2 border-white rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-white rounded-full mt-2 animate-bounce"></div>
+          {/* Scroll Indicator - Movido para baixo dos botões */}
+          <div className="flex justify-center">
+            <div className="w-5 h-8 border-2 border-white rounded-full flex justify-center">
+              <div className="w-1 h-2 bg-white rounded-full mt-2 animate-bounce"></div>
+            </div>
           </div>
         </div>
       </div>

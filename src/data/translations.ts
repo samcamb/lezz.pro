@@ -559,7 +559,7 @@ export const integrationLogos = [
 // ========================================
 // 🏢 CONFIGURAÇÃO DE APOIADORES
 // ========================================
-// ⚠️ LOGOTIPOS ATUALIZADOS COM URLs OFICIAIS DA WIKIPEDIA
+// ⚠️ APENAS 2 APOIADORES CONFORME SOLICITADO
 
 export const supporterLogos = [
   { 
@@ -569,7 +569,7 @@ export const supporterLogos = [
   },
   { 
     name: 'SEBRAE Startups', 
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Sebrae.svg',
+    logo: 'https://b0a11c671efbdaffe869cdeeaa7add49.cdn.bubble.io/cdn-cgi/image/w=192,h=192,f=auto,dpr=0.75,fit=contain/f1739545213446x734044394984941300/logo-Sebrae%20for%20Startups-cor.png',
     fallback: 'SEBRAE Startups'
   }
 ];
