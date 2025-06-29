@@ -29,22 +29,42 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background com vídeo do Vimeo - TESTE DIRETO */}
-      <iframe
-        src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1"
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          border: 'none',
-          zIndex: 1
-        }}
-        allow="autoplay; fullscreen"
-        title="Hero Background Video"
-      />
+      {/* Background Video Container */}
+      <div className="absolute inset-0 w-full h-full">
+        <div 
+          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')`
+          }}
+        >
+          {/* Vídeo Background usando embed direto */}
+          <div className="absolute inset-0 w-full h-full">
+            <div 
+              style={{
+                padding: '56.25% 0 0 0',
+                position: 'relative',
+                width: '100%',
+                height: '100%'
+              }}
+            >
+              <iframe
+                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&background=1"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+                title="Hero Background Video"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       
       {/* Overlay escuro */}
       <div className="absolute inset-0 bg-black/50 z-10"></div>

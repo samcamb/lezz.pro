@@ -83,21 +83,44 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
             </div>
           </div>
 
-          {/* Visual com Vídeo - TESTE DIRETO */}
+          {/* Video Player */}
           <div className="relative">
-            <div className="aspect-square bg-gray-200 rounded-3xl overflow-hidden relative">
-              {/* Vídeo direto como teste */}
-              <iframe
-                src="https://player.vimeo.com/video/1093077093?autoplay=1&loop=1&muted=1&controls=0&background=1"
-                className="w-full h-full object-cover"
-                style={{ border: 'none' }}
-                allow="autoplay; fullscreen"
-                title="Purpose Video"
+            <div className="aspect-square bg-gray-900 rounded-3xl overflow-hidden relative group cursor-pointer">
+              {/* Background Image como fallback */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop')`
+                }}
               />
+              
+              {/* Video Player */}
+              <div className="absolute inset-0">
+                <div 
+                  style={{
+                    padding: '100% 0 0 0',
+                    position: 'relative'
+                  }}
+                >
+                  <iframe
+                    src="https://player.vimeo.com/video/1093077093?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&background=1"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%'
+                    }}
+                    title="Purpose Video"
+                  />
+                </div>
+              </div>
               
               {/* Overlay com botão de play */}
               <div 
-                className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10 cursor-pointer"
+                className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-3xl z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 onClick={() => setIsVideoOpen(true)}
               >
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-colors">
@@ -112,7 +135,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
       {/* Modal de Vídeo */}
       {isVideoOpen && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-          <div className="relative w-full max-w-4xl aspect-video">
+          <div className="relative w-full max-w-4xl">
             {/* Botão Fechar */}
             <button
               onClick={() => setIsVideoOpen(false)}
@@ -121,15 +144,29 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               <X className="w-5 h-5" />
             </button>
             
-            {/* Vídeo do Vimeo */}
-            <iframe
-              src="https://player.vimeo.com/video/1093077093?autoplay=1"
-              className="w-full h-full rounded-lg"
-              style={{ border: 'none' }}
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              title="Purpose Video"
-            />
+            {/* Container do Vídeo */}
+            <div 
+              style={{
+                padding: '56.25% 0 0 0',
+                position: 'relative'
+              }}
+            >
+              <iframe
+                src="https://player.vimeo.com/video/1093077093?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '8px'
+                }}
+                title="Purpose Video"
+              />
+            </div>
           </div>
         </div>
       )}

@@ -279,18 +279,52 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                       </button>
                     </div>
 
-                    {/* Visual/Video */}
+                    {/* Visual/Video Preview */}
                     <div className={`bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-6 lg:p-8 ${!isEven ? 'lg:col-start-1' : ''}`}>
                       <div 
-                        className="w-full max-w-md aspect-video bg-black rounded-2xl flex items-center justify-center relative overflow-hidden cursor-pointer"
+                        className="w-full max-w-md aspect-video bg-gray-900 rounded-2xl flex items-center justify-center relative overflow-hidden cursor-pointer group"
                         onClick={() => setActiveVideo(pillar.videoId)}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900"></div>
-                        <div className="relative z-10 flex items-center justify-center">
+                        {/* Background Image */}
+                        <div 
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{
+                            backgroundImage: `url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop')`
+                          }}
+                        />
+                        
+                        {/* Video Preview */}
+                        <div className="absolute inset-0">
+                          <div 
+                            style={{
+                              padding: '56.25% 0 0 0',
+                              position: 'relative'
+                            }}
+                          >
+                            <iframe
+                              src={`https://player.vimeo.com/video/${pillar.videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0&background=1`}
+                              frameBorder="0"
+                              allow="autoplay; fullscreen; picture-in-picture"
+                              style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%'
+                              }}
+                              title={`Pillar ${pillar.step} Video`}
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <div className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm`}>
                             <Play className="w-8 h-8 text-white ml-1" />
                           </div>
                         </div>
+                        
+                        {/* Info Overlay */}
                         <div className="absolute bottom-3 left-3 right-3">
                           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2">
                             <div className="text-white text-xs font-medium">
@@ -382,7 +416,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       {/* Modal de Vídeo */}
       {activeVideo && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-          <div className="relative w-full max-w-4xl aspect-video">
+          <div className="relative w-full max-w-4xl">
             {/* Botão Fechar */}
             <button
               onClick={() => setActiveVideo(null)}
@@ -391,15 +425,29 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
               <X className="w-5 h-5" />
             </button>
             
-            {/* Vídeo do Vimeo */}
-            <iframe
-              src={`https://player.vimeo.com/video/${activeVideo}?autoplay=1`}
-              className="w-full h-full rounded-lg"
-              style={{ border: 'none' }}
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              title="Method Video"
-            />
+            {/* Container do Vídeo */}
+            <div 
+              style={{
+                padding: '56.25% 0 0 0',
+                position: 'relative'
+              }}
+            >
+              <iframe
+                src={`https://player.vimeo.com/video/${activeVideo}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1`}
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '8px'
+                }}
+                title="Method Video"
+              />
+            </div>
           </div>
         </div>
       )}
