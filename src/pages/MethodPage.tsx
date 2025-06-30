@@ -26,8 +26,8 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         videoRefs.current[playingVideo]?.contentWindow?.postMessage('{"method":"pause"}', '*');
       }
       
-      // Carrega o vídeo com autoplay, sem loop, sem informações do Vimeo no final
-      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0`;
+      // Carrega o vídeo com parâmetros mais restritivos
+      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0&background=0&transparent=0&responsive=1&dnt=1`;
       iframe.src = newSrc;
       setPlayingVideo(videoId);
       
@@ -51,8 +51,8 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
   const resetVideo = (videoId: string, vimeoId: string) => {
     const iframe = videoRefs.current[videoId];
     if (iframe) {
-      // Volta ao estado inicial
-      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1`;
+      // Volta ao estado inicial com parâmetros restritivos
+      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1`;
       iframe.src = initialSrc;
       setPlayingVideo(null);
       setEndedVideos(prev => {
@@ -76,6 +76,24 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
           Object.entries(videoRefs.current).forEach(([videoId, iframe]) => {
             if (iframe?.contentWindow === event.source) {
               setEndedVideos(prev => new Set(prev).add(videoId));
+              
+              // Força o reset do iframe após um pequeno delay para evitar tela de fim
+              setTimeout(() => {
+                if (iframe) {
+                  const vimeoIds: { [key: string]: string } = {
+                    'pillar1': '1093077093',
+                    'pillar2': '1093094206',
+                    'pillar3': '1093072840',
+                    'pillar4': '1093100258',
+                    'cycle': '1092834978'
+                  };
+                  const vimeoId = vimeoIds[videoId];
+                  if (vimeoId) {
+                    const resetSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1`;
+                    iframe.src = resetSrc;
+                  }
+                }
+              }, 500);
             }
           });
         }
@@ -351,7 +369,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {/* Vimeo Iframe */}
                         <iframe
                           ref={(el) => { videoRefs.current[pillar.videoId] = el; }}
-                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1`}
+                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1`}
                           className="absolute inset-0 w-full h-full"
                           style={{ border: 'none' }}
                           allow="autoplay; fullscreen; picture-in-picture"
@@ -467,7 +485,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {/* Vimeo Iframe */}
                 <iframe
                   ref={(el) => { videoRefs.current['cycle'] = el; }}
-                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1"
+                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 'none' }}
                   allow="autoplay; fullscreen; picture-in-picture"

@@ -15,8 +15,8 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
 
   const handlePlay = () => {
     if (iframeRef.current) {
-      // Carrega o vídeo com autoplay, sem loop
-      const newSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0';
+      // Carrega o vídeo com parâmetros mais restritivos para evitar conteúdo relacionado
+      const newSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0&background=0&transparent=0&responsive=1&dnt=1';
       iframeRef.current.src = newSrc;
       setIsPlaying(true);
       setVideoEnded(false);
@@ -33,8 +33,8 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
 
   const resetVideo = () => {
     if (iframeRef.current) {
-      // Volta ao estado inicial (sem autoplay, com muted)
-      const initialSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1';
+      // Volta ao estado inicial com parâmetros restritivos
+      const initialSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1';
       iframeRef.current.src = initialSrc;
       setIsPlaying(false);
       setVideoEnded(false);
@@ -51,6 +51,14 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
         if (data.event === 'ended') {
           setIsPlaying(false);
           setVideoEnded(true);
+          
+          // Força o reset do iframe após um pequeno delay para evitar tela de fim
+          setTimeout(() => {
+            if (iframeRef.current) {
+              const resetSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1';
+              iframeRef.current.src = resetSrc;
+            }
+          }, 500);
         }
       } catch (e) {
         // Ignora mensagens que não são JSON válido
@@ -139,7 +147,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               {/* Vimeo Iframe */}
               <iframe
                 ref={iframeRef}
-                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1"
+                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1"
                 className="absolute inset-0 w-full h-full"
                 style={{ border: 'none' }}
                 allow="autoplay; fullscreen; picture-in-picture"
@@ -174,7 +182,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               {videoEnded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                   <button
-                    onClick={resetVideo}
+                    onClick={handlePlay}
                     className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
                   >
                     <Play className="w-10 h-10 text-white ml-1" />
