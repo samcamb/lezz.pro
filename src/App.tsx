@@ -11,6 +11,9 @@ import Footer from './components/Footer';
 import StickyBanner from './components/StickyBanner';
 import MethodPage from './pages/MethodPage';
 import AboutPage from './pages/AboutPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import CookiesPage from './pages/CookiesPage';
 
 function App() {
   const { language, setLanguage } = useLanguage();
@@ -22,6 +25,12 @@ function App() {
         return <MethodPage language={language} />;
       case 'about':
         return <AboutPage language={language} />;
+      case 'terms':
+        return <TermsPage language={language} />;
+      case 'privacy':
+        return <PrivacyPage language={language} />;
+      case 'cookies':
+        return <CookiesPage language={language} />;
       default:
         return (
           <>
@@ -45,7 +54,7 @@ function App() {
         setCurrentPage={setCurrentPage}
       />
       {renderPage()}
-      <Footer language={language} />
+      <Footer language={language} setCurrentPage={setCurrentPage} />
       <StickyBanner language={language} />
     </div>
   );

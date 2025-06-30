@@ -5,10 +5,18 @@ import { translations, contactInfo, logoConfig } from '../data/translations';
 
 interface FooterProps {
   language: Language;
+  setCurrentPage?: (page: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ language }) => {
+const Footer: React.FC<FooterProps> = ({ language, setCurrentPage }) => {
   const t = translations.footer;
+
+  const handlePageNavigation = (page: string) => {
+    if (setCurrentPage) {
+      setCurrentPage(page);
+      window.scrollTo(0, 0);
+    }
+  };
 
   return (
     <footer id="contact" className="bg-black text-white py-12">
@@ -39,15 +47,24 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
               {language === 'pt-BR' ? 'Menu' : language === 'en-US' ? 'Menu' : 'Menú'}
             </h3>
             <div className="space-y-2">
-              <a href="#home" className="block text-sm text-gray-400 hover:text-white transition-colors">
+              <button 
+                onClick={() => handlePageNavigation('home')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
                 {language === 'pt-BR' ? 'Início' : language === 'en-US' ? 'Home' : 'Inicio'}
-              </a>
-              <a href="#method" className="block text-sm text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => handlePageNavigation('method')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
                 {language === 'pt-BR' ? 'Método Lezz' : language === 'en-US' ? 'Lezz Method' : 'Método Lezz'}
-              </a>
-              <a href="#about" className="block text-sm text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => handlePageNavigation('about')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
                 {language === 'pt-BR' ? 'Sobre' : language === 'en-US' ? 'About' : 'Acerca'}
-              </a>
+              </button>
             </div>
           </div>
 
@@ -57,15 +74,24 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
               {language === 'pt-BR' ? 'Legal' : language === 'en-US' ? 'Legal' : 'Legal'}
             </h3>
             <div className="space-y-2">
-              <a href="/terms" className="block text-sm text-gray-400 hover:text-white transition-colors">
+              <button 
+                onClick={() => handlePageNavigation('terms')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
                 {t.legal.terms[language]}
-              </a>
-              <a href="/privacy" className="block text-sm text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => handlePageNavigation('privacy')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
                 {t.legal.privacy[language]}
-              </a>
-              <a href="/cookies" className="block text-sm text-gray-400 hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={() => handlePageNavigation('cookies')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
                 {t.legal.cookies[language]}
-              </a>
+              </button>
             </div>
           </div>
 
