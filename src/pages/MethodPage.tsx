@@ -244,14 +244,14 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
             {t.subtitle[language]}
           </p>
           <button
-            onClick={() => handleWhatsApp(language === 'pt-BR' ? 'Olá! Quero multiplicar minhas vendas com o Método LEZZ' : 
-                                          language === 'en-US' ? 'Hello! I want to multiply my sales with the LEZZ Method' : 
-                                          'Hola! Quiero multiplicar mis ventas con el Método LEZZ')}
+            onClick={() => handleWhatsApp(language === 'pt-BR' ? 'Olá! Quero aumentar minhas conversões com o Método LEZZ' : 
+                                          language === 'en-US' ? 'Hello! I want to increase my conversions with the LEZZ Method' : 
+                                          'Hola! Quiero aumentar mis conversiones con el Método LEZZ')}
             className="bg-white text-black px-6 py-3 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 font-semibold text-base"
           >
-            {language === 'pt-BR' ? 'Quero multiplicar minhas vendas' : 
-             language === 'en-US' ? 'I want to multiply my sales' : 
-             'Quiero multiplicar mis ventas'}
+            {language === 'pt-BR' ? 'Quero aumentar minhas conversões' : 
+             language === 'en-US' ? 'I want to increase my conversions' : 
+             'Quiero aumentar mis conversiones'}
           </button>
         </div>
       </section>
@@ -492,9 +492,9 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            {language === 'pt-BR' ? 'Quer multiplicar suas vendas com o Método LEZZ de 4 Pilares?' : 
-             language === 'en-US' ? 'Want to multiply your sales with the LEZZ 4-Pillar Method?' : 
-             '¿Quieres multiplicar tus ventas con el Método LEZZ de 4 Pilares?'}
+            {language === 'pt-BR' ? 'Quer aumentar suas conversões com o Método LEZZ de 4 Pilares?' : 
+             language === 'en-US' ? 'Want to increase your conversions with the LEZZ 4-Pillar Method?' : 
+             '¿Quieres aumentar tus conversiones con el Método LEZZ de 4 Pilares?'}
           </h2>
           <button
             onClick={() => handleWhatsApp(language === 'pt-BR' ? 'Olá! Quero falar com a Lezz IA sobre o Método LEZZ' : 
