@@ -12,9 +12,9 @@ const StickyBanner: React.FC<StickyBannerProps> = ({ language }) => {
 
   const handleWhatsApp = () => {
     const messages = {
-      'pt-BR': 'Olá! Quero perguntar para a Lezz IA como otimizar meu negócio com IA',
-      'en-US': 'Hello! I want to ask Lezz AI how to optimize my business with AI',
-      'es': 'Hola! Quiero preguntarle a Lezz IA cómo optimizar mi negocio con IA'
+      'pt-BR': 'Olá! Quero saber como otimizar meu negócio com IA?',
+      'en-US': 'Hello! I want to know how to optimize my business with AI?',
+      'es': 'Hola! Quiero saber cómo optimizar mi negocio con IA?'
     };
     
     const message = encodeURIComponent(messages[language]);
