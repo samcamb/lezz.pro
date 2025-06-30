@@ -26,8 +26,8 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         videoRefs.current[playingVideo]?.contentWindow?.postMessage('{"method":"pause"}', '*');
       }
       
-      // Carrega o vídeo com parâmetros mais restritivos
-      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0&background=0&transparent=0&responsive=1&dnt=1`;
+      // Carrega o vídeo com parâmetros MUITO restritivos para evitar conteúdo relacionado
+      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0&background=0&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto`;
       iframe.src = newSrc;
       setPlayingVideo(videoId);
       
@@ -48,12 +48,30 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
     }
   };
 
-  const resetVideo = (videoId: string, vimeoId: string) => {
+  const resetVideoToInitialState = (videoId: string, vimeoId: string) => {
     const iframe = videoRefs.current[videoId];
     if (iframe) {
-      // Volta ao estado inicial com parâmetros restritivos
-      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1`;
-      iframe.src = initialSrc;
+      // Força o reset completo removendo e recriando o iframe
+      const parent = iframe.parentNode;
+      const newIframe = document.createElement('iframe');
+      
+      // Copia todos os atributos
+      newIframe.className = iframe.className;
+      newIframe.style.cssText = iframe.style.cssText;
+      newIframe.allow = iframe.allow;
+      newIframe.title = iframe.title;
+      newIframe.style.border = 'none';
+      
+      // URL inicial com background=1 e muted=1 para preview
+      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto`;
+      newIframe.src = initialSrc;
+      
+      // Substitui o iframe antigo
+      if (parent) {
+        parent.replaceChild(newIframe, iframe);
+        videoRefs.current[videoId] = newIframe;
+      }
+      
       setPlayingVideo(null);
       setEndedVideos(prev => {
         const newSet = new Set(prev);
@@ -72,28 +90,26 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         const data = JSON.parse(event.data);
         if (data.event === 'ended') {
           setPlayingVideo(null);
-          // Identifica qual vídeo terminou baseado no iframe que enviou a mensagem
+          
+          // Identifica qual vídeo terminou e força o reset
           Object.entries(videoRefs.current).forEach(([videoId, iframe]) => {
             if (iframe?.contentWindow === event.source) {
               setEndedVideos(prev => new Set(prev).add(videoId));
               
-              // Força o reset do iframe após um pequeno delay para evitar tela de fim
+              // Reset imediato para evitar tela de fim do Vimeo
               setTimeout(() => {
-                if (iframe) {
-                  const vimeoIds: { [key: string]: string } = {
-                    'pillar1': '1093077093',
-                    'pillar2': '1093094206',
-                    'pillar3': '1093072840',
-                    'pillar4': '1093100258',
-                    'cycle': '1092834978'
-                  };
-                  const vimeoId = vimeoIds[videoId];
-                  if (vimeoId) {
-                    const resetSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1`;
-                    iframe.src = resetSrc;
-                  }
+                const vimeoIds: { [key: string]: string } = {
+                  'pillar1': '1093077093',
+                  'pillar2': '1093094206',
+                  'pillar3': '1093072840',
+                  'pillar4': '1093100258',
+                  'cycle': '1092834978'
+                };
+                const vimeoId = vimeoIds[videoId];
+                if (vimeoId) {
+                  resetVideoToInitialState(videoId, vimeoId);
                 }
-              }, 500);
+              }, 100); // Reset muito rápido
             }
           });
         }
@@ -369,15 +385,15 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {/* Vimeo Iframe */}
                         <iframe
                           ref={(el) => { videoRefs.current[pillar.videoId] = el; }}
-                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1`}
+                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto`}
                           className="absolute inset-0 w-full h-full"
                           style={{ border: 'none' }}
                           allow="autoplay; fullscreen; picture-in-picture"
                           title={`${pillar.name} Video`}
                         />
                         
-                        {/* Play Button Overlay - Aparece quando não está tocando e não terminou */}
-                        {!isPlaying && !hasEnded && (
+                        {/* Play Button Overlay - Sempre visível quando não está tocando */}
+                        {!isPlaying && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                             <button
                               onClick={() => handlePlay(pillar.videoId, pillar.vimeoId)}
@@ -396,18 +412,6 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                               className="w-10 h-10 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                             >
                               <Pause className="w-5 h-5 text-white" />
-                            </button>
-                          </div>
-                        )}
-                        
-                        {/* Replay Button - Aparece quando o vídeo terminou */}
-                        {hasEnded && !isPlaying && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                            <button
-                              onClick={() => handlePlay(pillar.videoId, pillar.vimeoId)}
-                              className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform duration-300`}
-                            >
-                              <Play className="w-8 h-8 text-white ml-1" />
                             </button>
                           </div>
                         )}
@@ -485,7 +489,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {/* Vimeo Iframe */}
                 <iframe
                   ref={(el) => { videoRefs.current['cycle'] = el; }}
-                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1"
+                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 'none' }}
                   allow="autoplay; fullscreen; picture-in-picture"
@@ -493,7 +497,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 />
                 
                 {/* Play Button Overlay */}
-                {playingVideo !== 'cycle' && !endedVideos.has('cycle') && (
+                {playingVideo !== 'cycle' && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                     <button
                       onClick={() => handlePlay('cycle', '1092834978')}
@@ -512,18 +516,6 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                       className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                     >
                       <Pause className="w-6 h-6 text-white" />
-                    </button>
-                  </div>
-                )}
-                
-                {/* Replay Button */}
-                {endedVideos.has('cycle') && playingVideo !== 'cycle' && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                    <button
-                      onClick={() => handlePlay('cycle', '1092834978')}
-                      className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
-                    >
-                      <Play className="w-10 h-10 text-white ml-1" />
                     </button>
                   </div>
                 )}
