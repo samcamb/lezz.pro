@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Bot, BarChart3, Target, BookOpen, ArrowRight, CheckCircle, Play, Pause } from 'lucide-react';
 import { Language } from '../types/language';
-import { translations, contactInfo } from '../data/translations';
+import { translations, contactInfo, videoUrls } from '../data/translations';
 
 interface MethodPageProps {
   language: Language;
@@ -414,7 +414,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
           </div>
 
           {/* Connection Visualization */}
-          <div className="text-center">
+          <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-3 bg-white/10 rounded-full px-6 py-3">
               <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
               <ArrowRight className="w-3 h-3 text-gray-300" />
@@ -430,6 +430,89 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                'Ciclo Integrado y Automatizado'}
             </p>
           </div>
+
+          {/* Novo Campo de Vídeo do Ciclo Virtuoso */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 text-center">
+            <h3 className="text-xl font-bold mb-4">
+              {language === 'pt-BR' ? 'Veja o Ciclo Completo em Ação' : 
+               language === 'en-US' ? 'See the Complete Cycle in Action' : 
+               'Ve el Ciclo Completo en Acción'}
+            </h3>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+              {language === 'pt-BR' ? 'Assista como os 4 pilares trabalham juntos para criar um ciclo virtuoso de crescimento contínuo.' :
+               language === 'en-US' ? 'Watch how the 4 pillars work together to create a virtuous cycle of continuous growth.' :
+               'Mira cómo los 4 pilares trabajan juntos para crear un ciclo virtuoso de crecimiento continuo.'}
+            </p>
+            
+            {/* Video Player do Ciclo */}
+            <div className="max-w-2xl mx-auto">
+              <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden relative">
+                {/* Vimeo Iframe */}
+                <iframe
+                  ref={(el) => { videoRefs.current['cycle'] = el; }}
+                  src={videoUrls.hero[language] || 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1'}
+                  className="absolute inset-0 w-full h-full"
+                  style={{ border: 'none' }}
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  title="Ciclo Virtuoso Video"
+                />
+                
+                {/* Play Button Overlay */}
+                {playingVideo !== 'cycle' && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                    <button
+                      onClick={() => handlePlay('cycle', '1092831931')}
+                      className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
+                    >
+                      <Play className="w-10 h-10 text-white ml-1" />
+                    </button>
+                  </div>
+                )}
+                
+                {/* Pause Button (bottom left when playing) */}
+                {playingVideo === 'cycle' && (
+                  <div className="absolute bottom-4 left-4">
+                    <button
+                      onClick={() => handlePause('cycle')}
+                      className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
+                    >
+                      <Pause className="w-6 h-6 text-white" />
+                    </button>
+                  </div>
+                )}
+                
+                {/* Reset Button (when paused after playing) */}
+                {playingVideo !== 'cycle' && loadedVideos.has('cycle') && (
+                  <div className="absolute top-4 right-4">
+                    <button
+                      onClick={() => resetVideo('cycle', '1092831931')}
+                      className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"
+                    >
+                      {language === 'pt-BR' ? 'Reiniciar' : 
+                       language === 'en-US' ? 'Restart' : 
+                       'Reiniciar'}
+                    </button>
+                  </div>
+                )}
+                
+                {/* Video Info */}
+                <div className="absolute bottom-4 right-4">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
+                    <div className="text-white text-sm font-medium">
+                      {language === 'pt-BR' ? 'Ciclo Virtuoso' : 
+                       language === 'en-US' ? 'Virtuous Cycle' : 
+                       'Ciclo Virtuoso'}
+                    </div>
+                    <div className="text-white/70 text-xs mt-1">
+                      {language === 'pt-BR' ? 'Método Lezz Completo' : 
+                       language === 'en-US' ? 'Complete Lezz Method' : 
+                       'Método Lezz Completo'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -442,14 +525,14 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
              '¿Quieres multiplicar tus ventas con el Método LEZZ de 4 Pilares?'}
           </h2>
           <button
-            onClick={() => handleWhatsApp(language === 'pt-BR' ? 'Olá! Quero falar com um especialista sobre o Método LEZZ' : 
-                                          language === 'en-US' ? 'Hello! I want to speak with a specialist about the LEZZ Method' : 
-                                          'Hola! Quiero hablar con un especialista sobre el Método LEZZ')}
+            onClick={() => handleWhatsApp(language === 'pt-BR' ? 'Olá! Quero falar com a Lezz IA sobre o Método LEZZ' : 
+                                          language === 'en-US' ? 'Hello! I want to talk to Lezz AI about the LEZZ Method' : 
+                                          'Hola! Quiero hablar con Lezz IA sobre el Método LEZZ')}
             className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 font-semibold text-base"
           >
-            {language === 'pt-BR' ? 'Falar com um especialista' : 
-             language === 'en-US' ? 'Talk to a specialist' : 
-             'Hablar con un especialista'}
+            {language === 'pt-BR' ? 'Falar com a Lezz IA' : 
+             language === 'en-US' ? 'Talk to Lezz AI' : 
+             'Hablar con Lezz IA'}
           </button>
         </div>
       </section>
