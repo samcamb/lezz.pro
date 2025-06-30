@@ -364,18 +364,6 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                             </button>
                           </div>
                         )}
-                        
-                        {/* Info Overlay */}
-                        <div className="absolute bottom-3 right-3">
-                          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2">
-                            <div className="text-white text-xs font-medium">
-                              {language === 'pt-BR' ? 'Pilar' : language === 'en-US' ? 'Pillar' : 'Pilar'} {pillar.step}
-                            </div>
-                            <div className="text-white/70 text-xs mt-1">
-                              {pillar.name}
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -494,22 +482,6 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                     </button>
                   </div>
                 )}
-                
-                {/* Video Info */}
-                <div className="absolute bottom-4 right-4">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                    <div className="text-white text-sm font-medium">
-                      {language === 'pt-BR' ? 'Ciclo Virtuoso' : 
-                       language === 'en-US' ? 'Virtuous Cycle' : 
-                       'Ciclo Virtuoso'}
-                    </div>
-                    <div className="text-white/70 text-xs mt-1">
-                      {language === 'pt-BR' ? 'Método Lezz Completo' : 
-                       language === 'en-US' ? 'Complete Lezz Method' : 
-                       'Método Lezz Completo'}
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
   const handlePlay = () => {
     if (iframeRef.current) {
       // Recarrega o iframe com autoplay e áudio habilitado
-      const newSrc = 'https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&autoplay=1&muted=0';
+      const newSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&autoplay=1&muted=0';
       iframeRef.current.src = newSrc;
       setIsPlaying(true);
       setVideoLoaded(true);
@@ -34,7 +34,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
   const resetVideo = () => {
     if (iframeRef.current) {
       // Volta ao estado inicial (sem autoplay, com muted)
-      const initialSrc = 'https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1';
+      const initialSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1';
       iframeRef.current.src = initialSrc;
       setIsPlaying(false);
       setVideoLoaded(false);
@@ -113,13 +113,13 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
             </div>
           </div>
 
-          {/* Video Player - Mudança aqui: aspect-square para aspect-video */}
+          {/* Video Player */}
           <div className="relative">
             <div className="aspect-video bg-gray-900 rounded-3xl overflow-hidden relative">
               {/* Vimeo Iframe */}
               <iframe
                 ref={iframeRef}
-                src="https://player.vimeo.com/video/1092831931?h=e0aee331d8&badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
+                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
                 className="absolute inset-0 w-full h-full"
                 style={{ border: 'none' }}
                 allow="autoplay; fullscreen; picture-in-picture"
@@ -163,22 +163,6 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
                   </button>
                 </div>
               )}
-              
-              {/* Video Info */}
-              <div className="absolute bottom-4 right-4">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                  <div className="text-white text-sm font-medium">
-                    {language === 'pt-BR' ? 'IA com Propósito' : 
-                     language === 'en-US' ? 'AI with Purpose' : 
-                     'IA con Propósito'}
-                  </div>
-                  <div className="text-white/70 text-xs mt-1">
-                    {language === 'pt-BR' ? 'Vídeo Demonstrativo' : 
-                     language === 'en-US' ? 'Demo Video' : 
-                     'Video Demostrativo'}
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

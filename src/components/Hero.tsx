@@ -69,7 +69,7 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
           
           {/* Iframe como segunda opção - usando configuração mais permissiva */}
           <iframe
-            src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1&quality=720p"
+            src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1&quality=720p&badge=0&title=0&byline=0&portrait=0"
             className="absolute inset-0 w-full h-full"
             style={{
               border: 'none',
