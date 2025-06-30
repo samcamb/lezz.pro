@@ -9,17 +9,17 @@ interface PurposeProps {
 
 const Purpose: React.FC<PurposeProps> = ({ language }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const t = translations.purpose;
 
   const handlePlay = () => {
     if (iframeRef.current) {
-      // Recarrega o iframe com autoplay e áudio habilitado
-      const newSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&autoplay=1&muted=0';
+      // Carrega o vídeo com autoplay, sem loop
+      const newSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0';
       iframeRef.current.src = newSrc;
       setIsPlaying(true);
-      setVideoLoaded(true);
+      setVideoEnded(false);
     }
   };
 
@@ -34,12 +34,32 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
   const resetVideo = () => {
     if (iframeRef.current) {
       // Volta ao estado inicial (sem autoplay, com muted)
-      const initialSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1';
+      const initialSrc = 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1';
       iframeRef.current.src = initialSrc;
       setIsPlaying(false);
-      setVideoLoaded(false);
+      setVideoEnded(false);
     }
   };
+
+  // Escuta mensagens do Vimeo para detectar quando o vídeo termina
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://player.vimeo.com') return;
+      
+      try {
+        const data = JSON.parse(event.data);
+        if (data.event === 'ended') {
+          setIsPlaying(false);
+          setVideoEnded(true);
+        }
+      } catch (e) {
+        // Ignora mensagens que não são JSON válido
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   return (
     <section id="purpose" className="py-16 bg-white">
@@ -119,14 +139,14 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
               {/* Vimeo Iframe */}
               <iframe
                 ref={iframeRef}
-                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
+                src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1"
                 className="absolute inset-0 w-full h-full"
                 style={{ border: 'none' }}
                 allow="autoplay; fullscreen; picture-in-picture"
                 title="Purpose Video"
               />
               
-              {/* Play Button Overlay */}
+              {/* Play Button Overlay - Aparece quando não está tocando */}
               {!isPlaying && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                   <button
@@ -138,7 +158,7 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
                 </div>
               )}
               
-              {/* Pause Button (bottom left when playing) */}
+              {/* Pause Button - Aparece no canto inferior esquerdo quando está tocando */}
               {isPlaying && (
                 <div className="absolute bottom-4 left-4">
                   <button
@@ -150,16 +170,14 @@ const Purpose: React.FC<PurposeProps> = ({ language }) => {
                 </div>
               )}
               
-              {/* Reset Button (when paused after playing) */}
-              {!isPlaying && videoLoaded && (
-                <div className="absolute top-4 right-4">
+              {/* Replay Button - Aparece quando o vídeo terminou */}
+              {videoEnded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                   <button
                     onClick={resetVideo}
-                    className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"
+                    className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
                   >
-                    {language === 'pt-BR' ? 'Reiniciar' : 
-                     language === 'en-US' ? 'Restart' : 
-                     'Reiniciar'}
+                    <Play className="w-10 h-10 text-white ml-1" />
                   </button>
                 </div>
               )}

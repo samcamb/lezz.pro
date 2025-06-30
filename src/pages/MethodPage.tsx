@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Bot, BarChart3, Target, BookOpen, ArrowRight, CheckCircle, Play, Pause } from 'lucide-react';
 import { Language } from '../types/language';
-import { translations, contactInfo, videoUrls } from '../data/translations';
+import { translations, contactInfo } from '../data/translations';
 
 interface MethodPageProps {
   language: Language;
@@ -9,7 +9,7 @@ interface MethodPageProps {
 
 const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-  const [loadedVideos, setLoadedVideos] = useState<Set<string>>(new Set());
+  const [endedVideos, setEndedVideos] = useState<Set<string>>(new Set());
   const videoRefs = useRef<{ [key: string]: HTMLIFrameElement | null }>({});
   const t = translations.method;
 
@@ -26,11 +26,17 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
         videoRefs.current[playingVideo]?.contentWindow?.postMessage('{"method":"pause"}', '*');
       }
       
-      // Carrega o vídeo com autoplay e áudio habilitado
-      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&autoplay=1&muted=0`;
+      // Carrega o vídeo com autoplay, sem loop, sem informações do Vimeo no final
+      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0`;
       iframe.src = newSrc;
       setPlayingVideo(videoId);
-      setLoadedVideos(prev => new Set(prev).add(videoId));
+      
+      // Remove da lista de vídeos terminados
+      setEndedVideos(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(videoId);
+        return newSet;
+      });
     }
   };
 
@@ -46,16 +52,41 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
     const iframe = videoRefs.current[videoId];
     if (iframe) {
       // Volta ao estado inicial
-      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1`;
+      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1`;
       iframe.src = initialSrc;
       setPlayingVideo(null);
-      setLoadedVideos(prev => {
+      setEndedVideos(prev => {
         const newSet = new Set(prev);
         newSet.delete(videoId);
         return newSet;
       });
     }
   };
+
+  // Escuta mensagens do Vimeo para detectar quando os vídeos terminam
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://player.vimeo.com') return;
+      
+      try {
+        const data = JSON.parse(event.data);
+        if (data.event === 'ended') {
+          setPlayingVideo(null);
+          // Identifica qual vídeo terminou baseado no iframe que enviou a mensagem
+          Object.entries(videoRefs.current).forEach(([videoId, iframe]) => {
+            if (iframe?.contentWindow === event.source) {
+              setEndedVideos(prev => new Set(prev).add(videoId));
+            }
+          });
+        }
+      } catch (e) {
+        // Ignora mensagens que não são JSON válido
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   const pillars = [
     {
@@ -280,7 +311,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
               const Icon = pillar.icon;
               const isEven = index % 2 === 0;
               const isPlaying = playingVideo === pillar.videoId;
-              const isLoaded = loadedVideos.has(pillar.videoId);
+              const hasEnded = endedVideos.has(pillar.videoId);
               
               return (
                 <div key={index} className="bg-white rounded-3xl shadow-xl overflow-hidden">
@@ -320,15 +351,15 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {/* Vimeo Iframe */}
                         <iframe
                           ref={(el) => { videoRefs.current[pillar.videoId] = el; }}
-                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1`}
+                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1`}
                           className="absolute inset-0 w-full h-full"
                           style={{ border: 'none' }}
                           allow="autoplay; fullscreen; picture-in-picture"
                           title={`${pillar.name} Video`}
                         />
                         
-                        {/* Play Button Overlay */}
-                        {!isPlaying && (
+                        {/* Play Button Overlay - Aparece quando não está tocando e não terminou */}
+                        {!isPlaying && !hasEnded && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                             <button
                               onClick={() => handlePlay(pillar.videoId, pillar.vimeoId)}
@@ -339,7 +370,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                           </div>
                         )}
                         
-                        {/* Pause Button (bottom left when playing) */}
+                        {/* Pause Button - Aparece no canto inferior esquerdo quando está tocando */}
                         {isPlaying && (
                           <div className="absolute bottom-3 left-3">
                             <button
@@ -351,16 +382,14 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                           </div>
                         )}
                         
-                        {/* Reset Button (when paused after playing) */}
-                        {!isPlaying && isLoaded && (
-                          <div className="absolute top-3 right-3">
+                        {/* Replay Button - Aparece quando o vídeo terminou */}
+                        {hasEnded && !isPlaying && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                             <button
-                              onClick={() => resetVideo(pillar.videoId, pillar.vimeoId)}
-                              className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"
+                              onClick={() => handlePlay(pillar.videoId, pillar.vimeoId)}
+                              className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform duration-300`}
                             >
-                              {language === 'pt-BR' ? 'Reiniciar' : 
-                               language === 'en-US' ? 'Restart' : 
-                               'Reiniciar'}
+                              <Play className="w-8 h-8 text-white ml-1" />
                             </button>
                           </div>
                         )}
@@ -419,7 +448,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
             </p>
           </div>
 
-          {/* Novo Campo de Vídeo do Ciclo Virtuoso */}
+          {/* Vídeo do Ciclo Virtuoso */}
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 text-center">
             <h3 className="text-xl font-bold mb-4">
               {language === 'pt-BR' ? 'Veja o Ciclo Completo em Ação' : 
@@ -438,7 +467,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {/* Vimeo Iframe */}
                 <iframe
                   ref={(el) => { videoRefs.current['cycle'] = el; }}
-                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
+                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 'none' }}
                   allow="autoplay; fullscreen; picture-in-picture"
@@ -446,7 +475,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 />
                 
                 {/* Play Button Overlay */}
-                {playingVideo !== 'cycle' && (
+                {playingVideo !== 'cycle' && !endedVideos.has('cycle') && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                     <button
                       onClick={() => handlePlay('cycle', '1092834978')}
@@ -457,7 +486,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                   </div>
                 )}
                 
-                {/* Pause Button (bottom left when playing) */}
+                {/* Pause Button */}
                 {playingVideo === 'cycle' && (
                   <div className="absolute bottom-4 left-4">
                     <button
@@ -469,16 +498,14 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                   </div>
                 )}
                 
-                {/* Reset Button (when paused after playing) */}
-                {playingVideo !== 'cycle' && loadedVideos.has('cycle') && (
-                  <div className="absolute top-4 right-4">
+                {/* Replay Button */}
+                {endedVideos.has('cycle') && playingVideo !== 'cycle' && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                     <button
-                      onClick={() => resetVideo('cycle', '1092831931')}
-                      className="px-3 py-2 bg-black/50 rounded-full text-white text-xs backdrop-blur-sm hover:bg-black/70 transition-colors"
+                      onClick={() => handlePlay('cycle', '1092834978')}
+                      className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
                     >
-                      {language === 'pt-BR' ? 'Reiniciar' : 
-                       language === 'en-US' ? 'Restart' : 
-                       'Reiniciar'}
+                      <Play className="w-10 h-10 text-white ml-1" />
                     </button>
                   </div>
                 )}

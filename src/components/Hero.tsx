@@ -54,9 +54,9 @@ const Hero: React.FC<HeroProps> = ({ language, setCurrentPage }) => {
             <source src="https://player.vimeo.com/external/1092831931.sd.mp4?s=YOUR_HASH&profile_id=164" type="video/mp4" />
           </video>
           
-          {/* Iframe como segunda opção - apenas desktop */}
+          {/* Iframe como segunda opção - apenas desktop, sem informações do Vimeo */}
           <iframe
-            src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1&quality=720p&badge=0&title=0&byline=0&portrait=0"
+            src="https://player.vimeo.com/video/1092831931?autoplay=1&loop=1&muted=1&controls=0&background=1&quality=720p&badge=0&title=0&byline=0&portrait=0&outro=nothing"
             className="absolute inset-0 w-full h-full"
             style={{
               border: 'none',
