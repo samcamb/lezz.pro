@@ -450,7 +450,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {/* Vimeo Iframe */}
                 <iframe
                   ref={(el) => { videoRefs.current['cycle'] = el; }}
-                  src={videoUrls.hero[language] || 'https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1'}
+                  src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 'none' }}
                   allow="autoplay; fullscreen; picture-in-picture"

@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
             <img 
               src={logoConfig.footer}
               alt="Lezz.pro" 
-              className="h-20 w-auto filter brightness-0 invert" // Aumentado de h-7 para h-12
+              className="h-12 w-auto filter brightness-0 invert"
             />
             <p className="text-lg font-medium text-gray-300">
               {t.slogan[language]}
