@@ -438,7 +438,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {/* Vimeo Iframe */}
                 <iframe
                   ref={(el) => { videoRefs.current['cycle'] = el; }}
-                  src="https://player.vimeo.com/video/1092831931?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
+                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&controls=0&title=0&byline=0&portrait=0&background=1&muted=1"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 'none' }}
                   allow="autoplay; fullscreen; picture-in-picture"
@@ -449,7 +449,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {playingVideo !== 'cycle' && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                     <button
-                      onClick={() => handlePlay('cycle', '1092831931')}
+                      onClick={() => handlePlay('cycle', '1092834978')}
                       className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
                     >
                       <Play className="w-10 h-10 text-white ml-1" />
