@@ -13,7 +13,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
   return (
     <footer id="contact" className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-4 gap-10">
           {/* Brand Column */}
           <div className="space-y-4">
             <img 
@@ -31,6 +31,24 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
                 'Transforming businesses through artificial intelligence with purpose and responsibility.' :
                 'Transformando negocios a través de la inteligencia artificial con propósito y responsabilidad.'}
             </p>
+          </div>
+
+          {/* Menu Column */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">
+              {language === 'pt-BR' ? 'Menu' : language === 'en-US' ? 'Menu' : 'Menú'}
+            </h3>
+            <div className="space-y-2">
+              <a href="#home" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                {language === 'pt-BR' ? 'Início' : language === 'en-US' ? 'Home' : 'Inicio'}
+              </a>
+              <a href="#method" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                {language === 'pt-BR' ? 'Método Lezz' : language === 'en-US' ? 'Lezz Method' : 'Método Lezz'}
+              </a>
+              <a href="#about" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                {language === 'pt-BR' ? 'Sobre' : language === 'en-US' ? 'About' : 'Acerca'}
+              </a>
+            </div>
           </div>
 
           {/* Legal Column */}
