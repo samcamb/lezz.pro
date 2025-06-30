@@ -27,7 +27,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       }
       
       // Carrega o vídeo com parâmetros MUITO restritivos para evitar conteúdo relacionado
-      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0&background=0&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto`;
+      const newSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&autoplay=1&muted=0&background=0&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto&end_screen=0`;
       iframe.src = newSrc;
       setPlayingVideo(videoId);
       
@@ -63,7 +63,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       newIframe.style.border = 'none';
       
       // URL inicial com background=1 e muted=1 para preview
-      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto`;
+      const initialSrc = `https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto&end_screen=0`;
       newIframe.src = initialSrc;
       
       // Substitui o iframe antigo
@@ -96,7 +96,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
             if (iframe?.contentWindow === event.source) {
               setEndedVideos(prev => new Set(prev).add(videoId));
               
-              // Reset imediato para evitar tela de fim do Vimeo
+              // Reset IMEDIATO para evitar tela de fim do Vimeo
               setTimeout(() => {
                 const vimeoIds: { [key: string]: string } = {
                   'pillar1': '1093077093',
@@ -109,7 +109,26 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 if (vimeoId) {
                   resetVideoToInitialState(videoId, vimeoId);
                 }
-              }, 100); // Reset muito rápido
+              }, 50); // Reset muito rápido - apenas 50ms
+            }
+          });
+        } else if (data.event === 'timeupdate' && data.data && data.data.percent > 0.95) {
+          // Detecta quando está próximo do fim (95%) e já prepara o reset
+          Object.entries(videoRefs.current).forEach(([videoId, iframe]) => {
+            if (iframe?.contentWindow === event.source) {
+              setTimeout(() => {
+                const vimeoIds: { [key: string]: string } = {
+                  'pillar1': '1093077093',
+                  'pillar2': '1093094206',
+                  'pillar3': '1093072840',
+                  'pillar4': '1093100258',
+                  'cycle': '1092834978'
+                };
+                const vimeoId = vimeoIds[videoId];
+                if (vimeoId) {
+                  resetVideoToInitialState(videoId, vimeoId);
+                }
+              }, 1000); // Reset preventivo 1 segundo antes do fim
             }
           });
         }
@@ -385,7 +404,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                         {/* Vimeo Iframe */}
                         <iframe
                           ref={(el) => { videoRefs.current[pillar.videoId] = el; }}
-                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto`}
+                          src={`https://player.vimeo.com/video/${pillar.vimeoId}?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto&end_screen=0`}
                           className="absolute inset-0 w-full h-full"
                           style={{ border: 'none' }}
                           allow="autoplay; fullscreen; picture-in-picture"
@@ -412,6 +431,21 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                               className="w-10 h-10 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                             >
                               <Pause className="w-5 h-5 text-white" />
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Overlay de proteção contra cliques no final */}
+                        {hasEnded && (
+                          <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+                            <button
+                              onClick={() => {
+                                resetVideoToInitialState(pillar.videoId, pillar.vimeoId);
+                                setTimeout(() => handlePlay(pillar.videoId, pillar.vimeoId), 100);
+                              }}
+                              className={`w-16 h-16 bg-gradient-to-r ${pillar.color} rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform duration-300`}
+                            >
+                              <Play className="w-8 h-8 text-white ml-1" />
                             </button>
                           </div>
                         )}
@@ -489,7 +523,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 {/* Vimeo Iframe */}
                 <iframe
                   ref={(el) => { videoRefs.current['cycle'] = el; }}
-                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto"
+                  src="https://player.vimeo.com/video/1092834978?badge=0&autopause=0&player_id=0&app_id=122963&controls=0&title=0&byline=0&portrait=0&outro=nothing&loop=0&background=1&muted=1&transparent=0&responsive=1&dnt=1&playsinline=1&keyboard=0&pip=0&quality=auto&end_screen=0"
                   className="absolute inset-0 w-full h-full"
                   style={{ border: 'none' }}
                   allow="autoplay; fullscreen; picture-in-picture"
@@ -497,7 +531,7 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                 />
                 
                 {/* Play Button Overlay */}
-                {playingVideo !== 'cycle' && (
+                {playingVideo !== 'cycle' && !endedVideos.has('cycle') && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                     <button
                       onClick={() => handlePlay('cycle', '1092834978')}
@@ -516,6 +550,21 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
                       className="w-12 h-12 bg-black/50 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition-colors"
                     >
                       <Pause className="w-6 h-6 text-white" />
+                    </button>
+                  </div>
+                )}
+
+                {/* Overlay de proteção contra cliques no final */}
+                {endedVideos.has('cycle') && (
+                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+                    <button
+                      onClick={() => {
+                        resetVideoToInitialState('cycle', '1092834978');
+                        setTimeout(() => handlePlay('cycle', '1092834978'), 100);
+                      }}
+                      className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-300 transform hover:scale-110"
+                    >
+                      <Play className="w-10 h-10 text-white ml-1" />
                     </button>
                   </div>
                 )}
