@@ -121,9 +121,9 @@ const TermsPage: React.FC<TermsPageProps> = ({ language }) => {
           'es': '9. Contacto'
         },
         content: {
-          'pt-BR': 'Para dúvidas sobre estes Termos de Uso, entre em contato conosco através do email contato@lezz.pro ou WhatsApp +55 35 93618-0709.',
-          'en-US': 'For questions about these Terms of Use, contact us via email contato@lezz.pro or WhatsApp +55 35 93618-0709.',
-          'es': 'Para preguntas sobre estos Términos de Uso, contáctanos a través del email contato@lezz.pro o WhatsApp +55 35 93618-0709.'
+          'pt-BR': 'Para dúvidas sobre estes Termos de Uso, entre em contato conosco através do email lezz.pro.ia@gmail.com ou WhatsApp +55 35 93618-0709.',
+          'en-US': 'For questions about these Terms of Use, contact us via email lezz.pro.ia@gmail.com or WhatsApp +55 35 93618-0709.',
+          'es': 'Para preguntas sobre estos Términos de Uso, contáctanos a través del email lezz.pro.ia@gmail.com o WhatsApp +55 35 93618-0709.'
         }
       }
     }

@@ -48,21 +48,21 @@ const PlansPage: React.FC<PlansPageProps> = ({ language }) => {
         },
         features: {
           'pt-BR': [
-            'Agente IA SDR 24/7',
+            'Agente IA SDR 24 horas por dia',
             'Qualificação automática de leads',
             'Pixel Booster para otimização',
             'Rastreamento inteligente',
             'Suporte técnico completo'
           ],
           'en-US': [
-            '24/7 AI SDR Agent',
+            'AI SDR Agent 24 hours a day',
             'Automatic lead qualification',
             'Pixel Booster for optimization',
             'Intelligent tracking',
             'Complete technical support'
           ],
           'es': [
-            'Agente IA SDR 24/7',
+            'Agente IA SDR 24 horas al día',
             'Calificación automática de leads',
             'Pixel Booster para optimización',
             'Seguimiento inteligente',
@@ -361,7 +361,7 @@ const PlansPage: React.FC<PlansPageProps> = ({ language }) => {
             {/* Contact Info */}
             <div className="mt-8 text-sm text-gray-400">
               <p>WhatsApp: {contactInfo.whatsapp}</p>
-              <p>Email: contato@lezz.pro</p>
+              <p>Email: lezz.pro.ia@gmail.com</p>
             </div>
           </div>
         </div>

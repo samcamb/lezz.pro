@@ -82,6 +82,14 @@ const Header: React.FC<HeaderProps> = ({ language, setLanguage, currentPage, set
             >
               {t.about[language]}
             </button>
+            <button 
+              onClick={() => handleNavClick('plans')}
+              className={`text-sm font-medium transition-colors ${
+                currentPage === 'plans' ? 'text-black' : 'text-gray-700 hover:text-black'
+              }`}
+            >
+              {language === 'pt-BR' ? 'Planos' : language === 'en-US' ? 'Plans' : 'Planes'}
+            </button>
           </nav>
 
           {/* Language Switcher & CTA */}

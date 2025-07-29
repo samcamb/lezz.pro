@@ -145,7 +145,7 @@ const Footer: React.FC<FooterProps> = ({ language, setCurrentPage }) => {
             {/* Contact Info */}
             <div className="space-y-1 text-sm text-gray-400">
               <p>WhatsApp: {contactInfo.whatsapp}</p>
-              <p>Email: contato@lezz.pro</p>
+              <p>Email: lezz.pro.ia@gmail.com</p>
             </div>
           </div>
         </div>

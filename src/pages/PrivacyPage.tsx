@@ -242,7 +242,7 @@ const PrivacyPage: React.FC<PrivacyPageProps> = ({ language }) => {
               'Contacta a nuestro Oficial de Protección de Datos (DPO) para aclarar cualquier duda sobre el tratamiento de tus datos personales.'}
           </p>
           <div className="space-y-2">
-            <p className="text-sm">Email: contato@lezz.pro</p>
+            <p className="text-sm">Email: lezz.pro.ia@gmail.com</p>
             <p className="text-sm">WhatsApp: +55 35 93618-0709</p>
           </div>
         </div>

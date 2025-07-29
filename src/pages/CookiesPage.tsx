@@ -289,7 +289,7 @@ const CookiesPage: React.FC<CookiesPageProps> = ({ language }) => {
               'Si tienes alguna pregunta sobre nuestra política de cookies, contáctanos.'}
           </p>
           <div className="space-y-2">
-            <p className="text-sm">Email: contato@lezz.pro</p>
+            <p className="text-sm">Email: lezz.pro.ia@gmail.com</p>
             <p className="text-sm">WhatsApp: +55 35 93618-0709</p>
           </div>
         </div>
