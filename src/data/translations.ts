@@ -112,14 +112,14 @@ export const translations = {
       },
       pillar3: {
         title: {
-          'pt-BR': 'Otimização Contínua 24 horas por dia',
-          'en-US': 'Continuous Optimization 24 hours a day',
-          'es': 'Optimización Continua 24 horas al día'
+          'pt-BR': 'Otimização Contínua de Campanhas',
+          'en-US': 'Continuous Campaign Optimization',
+          'es': 'Optimización Continua de Campañas'
         },
         description: {
-          'pt-BR': 'Enquanto sua equipe foca nas vendas, nosso Pixel Booster trabalha 24 horas por dia nos bastidores, otimizando continuamente suas campanhas de tráfego pago para atrair leads cada vez melhores.',
-          'en-US': 'While your team focuses on sales, our Pixel Booster works 24 hours a day behind the scenes, continuously optimizing your paid traffic campaigns to attract increasingly better leads.',
-          'es': 'Mientras tu equipo se enfoca en las ventas, nuestro Pixel Booster trabaja 24 horas al día detrás de escena, optimizando continuamente tus campañas de tráfico pago para atraer leads cada vez mejores.'
+          'pt-BR': 'Enquanto sua equipe vende, nosso Pixel Booster trabalha 24/7 para tornar seu investimento em anúncios mais inteligente. Ele rastreia inteligentemente as fontes de leads (Instagram, Facebook, Google) e alimenta dados reais de conversão de volta aos pixels. Este loop de feedback automatizado otimiza suas campanhas, reduz seu Custo de Aquisição de Cliente (CAC) e maximiza o ROI sem intervenção manual.',
+          'en-US': 'While your team sells, our Pixel Booster works 24/7 to make your ad spend smarter. It intelligently tracks lead sources (Instagram, Facebook, Google) and feeds real conversion data back to the pixels. This automated feedback loop optimizes your campaigns, lowers your Customer Acquisition Cost (CAC), and maximizes ROI without manual intervention.',
+          'es': 'Mientras tu equipo vende, nuestro Pixel Booster trabaja 24/7 para hacer tu inversión en anuncios más inteligente. Rastrea inteligentemente las fuentes de leads (Instagram, Facebook, Google) y alimenta datos reales de conversión de vuelta a los píxeles. Este bucle de retroalimentación automatizado optimiza tus campañas, reduce tu Costo de Adquisición de Cliente (CAC) y maximiza el ROI sin intervención manual.'
         }
       },
       pillar4: {
@@ -204,9 +204,9 @@ export const translations = {
         'es': 'Seguimiento impreciso de leads de campañas de Facebook, Instagram o Google'
       },
       timing: {
-        'pt-BR': 'Perda de leads que chegam fora do horário comercial (50% dos contatos!)',
-        'en-US': 'Losing leads that arrive outside of business hours (50% of contacts!)',
-        'es': 'Pérdida de leads que llegan fuera del horario comercial (¡50% de los contactos!)'
+        'pt-BR': 'Perda de leads que chegam fora do horário comercial - 50% dos contatos chegam quando você não está disponível!',
+        'en-US': 'Losing leads that arrive outside of business hours - 50% of contacts arrive when you are not available!',
+        'es': 'Pérdida de leads que llegan fuera del horario comercial - ¡50% de los contactos llegan cuando no estás disponible!'
       },
       qualification: {
         'pt-BR': 'Sua equipe especializada de vendas está perdendo tempo com leads frios e não qualificados',
