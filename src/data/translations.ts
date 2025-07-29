@@ -88,14 +88,14 @@ export const translations = {
     pillars: {
       pillar1: {
         title: {
-          'pt-BR': 'Engajamento Automatizado 24/7',
-          'en-US': '24/7 Automated Engagement',
-          'es': 'Compromiso Automatizado 24/7'
+          'pt-BR': 'Engajamento Automatizado 24 horas por dia',
+          'en-US': 'Automated Engagement 24 hours a day',
+          'es': 'Compromiso Automatizado 24 horas al día'
         },
         description: {
-          'pt-BR': 'Nosso Agente SDR IA é seu primeiro ponto de contato incansável. Ele fornece recepção inteligente para todos os leads, usa critérios predefinidos para qualificação automatizada, inicia conversas humanizadas para coletar dados estratégicos e até integra com Google Calendar para agendar reuniões automaticamente. Nunca mais perca um lead por questão de timing.',
-          'en-US': 'Our AI SDR Agent is your tireless first point of contact. It provides intelligent reception for all leads, uses predefined criteria for automated qualification, initiates human-like conversations to gather strategic data, and even integrates with Google Calendar to schedule meetings automatically. Never lose a lead due to timing again.',
-          'es': 'Nuestro Agente SDR IA es tu primer punto de contacto incansable. Proporciona recepción inteligente para todos los leads, usa criterios predefinidos para calificación automatizada, inicia conversaciones humanizadas para recopilar datos estratégicos e incluso se integra con Google Calendar para programar reuniones automáticamente. Nunca más pierdas un lead por cuestión de tiempo.'
+          'pt-BR': 'Nosso Agente SDR IA é seu primeiro ponto de contato incansável. Ele fornece recepção inteligente para todos os leads 24 horas por dia, usa critérios predefinidos para qualificação automatizada, inicia conversas humanizadas para coletar dados estratégicos e até integra com Google Calendar para agendar reuniões automaticamente. Nunca mais perca um lead por questão de timing.',
+          'en-US': 'Our AI SDR Agent is your tireless first point of contact. It provides intelligent reception for all leads 24 hours a day, uses predefined criteria for automated qualification, initiates human-like conversations to gather strategic data, and even integrates with Google Calendar to schedule meetings automatically. Never lose a lead due to timing again.',
+          'es': 'Nuestro Agente SDR IA es tu primer punto de contacto incansable. Proporciona recepción inteligente para todos los leads 24 horas al día, usa criterios predefinidos para calificación automatizada, inicia conversaciones humanizadas para recopilar datos estratégicos e incluso se integra con Google Calendar para programar reuniones automáticamente. Nunca más pierdas un lead por cuestión de tiempo.'
         }
       },
       pillar2: {
