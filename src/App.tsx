@@ -14,6 +14,7 @@ import AboutPage from './pages/AboutPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import CookiesPage from './pages/CookiesPage';
+import PlansPage from './pages/PlansPage';
 
 function App() {
   const { language, setLanguage } = useLanguage();
@@ -31,6 +32,8 @@ function App() {
         return <PrivacyPage language={language} />;
       case 'cookies':
         return <CookiesPage language={language} />;
+      case 'plans':
+        return <PlansPage language={language} />;
       default:
         return (
           <>

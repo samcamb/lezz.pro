@@ -65,6 +65,12 @@ const Footer: React.FC<FooterProps> = ({ language, setCurrentPage }) => {
               >
                 {language === 'pt-BR' ? 'Sobre' : language === 'en-US' ? 'About' : 'Acerca'}
               </button>
+              <button 
+                onClick={() => handlePageNavigation('plans')}
+                className="block text-sm text-gray-400 hover:text-white transition-colors text-left"
+              >
+                {language === 'pt-BR' ? 'Planos' : language === 'en-US' ? 'Plans' : 'Planes'}
+              </button>
             </div>
           </div>
 
