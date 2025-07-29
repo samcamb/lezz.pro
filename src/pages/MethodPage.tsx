@@ -230,21 +230,21 @@ const MethodPage: React.FC<MethodPageProps> = ({ language }) => {
       features: language === 'pt-BR' ? [
         'Rastreamento Inteligente',
         'Retroalimentação de Dados',
-        'Otimização 24/7',
+        'Otimização 24 horas por dia',
         'Remarketing Inteligente',
         'Análise Preditiva',
         'Bid Automático'
       ] : language === 'en-US' ? [
         'Intelligent Tracking',
         'Data Feedback',
-        '24/7 Optimization',
+        'Optimization 24 hours a day',
         'Intelligent Remarketing',
         'Predictive Analysis',
         'Automatic Bidding'
       ] : [
         'Seguimiento Inteligente',
         'Retroalimentación de Datos',
-        'Optimización 24/7',
+        'Optimización 24 horas al día',
         'Remarketing Inteligente',
         'Análisis Predictivo',
         'Puja Automática'
