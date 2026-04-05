@@ -1,13 +1,65 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import LandingPage from "@/pages/LandingPage";
-
-const queryClient = new QueryClient();
+import React, { useState } from 'react';
+import { useLanguage } from './hooks/useLanguage';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Purpose from './components/Purpose';
+import Results from './components/Results';
+import WhoWeHelp from './components/WhoWeHelp';
+import Integrations from './components/Integrations';
+import Supporters from './components/Supporters';
+import Footer from './components/Footer';
+import StickyBanner from './components/StickyBanner';
+import MethodPage from './pages/MethodPage';
+import AboutPage from './pages/AboutPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import CookiesPage from './pages/CookiesPage';
+import PlansPage from './pages/PlansPage';
 
 function App() {
+  const { language, setLanguage } = useLanguage();
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'method':
+        return <MethodPage language={language} />;
+      case 'about':
+        return <AboutPage language={language} />;
+      case 'terms':
+        return <TermsPage language={language} />;
+      case 'privacy':
+        return <PrivacyPage language={language} />;
+      case 'cookies':
+        return <CookiesPage language={language} />;
+      case 'plans':
+        return <PlansPage language={language} />;
+      default:
+        return (
+          <>
+            <Hero language={language} setCurrentPage={setCurrentPage} />
+            <Purpose language={language} />
+            <Results language={language} />
+            <WhoWeHelp language={language} />
+            <Integrations language={language} />
+            <Supporters language={language} />
+          </>
+        );
+    }
+  };
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <LandingPage />
-    </QueryClientProvider>
+    <div className="min-h-screen bg-white pb-16">
+      <Header 
+        language={language} 
+        setLanguage={setLanguage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+      {renderPage()}
+      <Footer language={language} setCurrentPage={setCurrentPage} />
+      <StickyBanner language={language} />
+    </div>
   );
 }
 
